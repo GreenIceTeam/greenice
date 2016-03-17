@@ -1,7 +1,7 @@
 <div class="admin-default-index">
     <h1><?= $this->context->action->uniqueId ?></h1>
     <p>
-        This is the view content for action "<?= $this->context->action->id ?>".
+        Ceci est le contenu de la vue pour l'action "<?= $this->context->action->id ?>".
         The action belongs to the controller "<?= get_class($this->context) ?>"
         in the "<?= $this->context->module->id ?>" module.
     </p>
