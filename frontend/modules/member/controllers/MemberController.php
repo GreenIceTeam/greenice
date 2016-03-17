@@ -15,7 +15,7 @@ class MemberController extends \yii\web\Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) { 
-                   return $this->render('home');
+                   return $this->render('index');
                 }
             }
         }
