@@ -1,5 +1,5 @@
 <?php
-namespace frontend\models;
+namespace frontend\modules\member\models;
 
 use common\models\User;
 use yii\base\Model;
@@ -31,34 +31,25 @@ class SignupForm extends Model
         return [
             ['username', 'filter', 'filter' => 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Ce nom existe deja'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Cet email existe déjà.'],
 
-            ['password', 'required'],
+            [['password','nom','prenom','sexe','ville','role','date_naiss','id_domaine','id_sous_dom'], 'required'],
             ['password', 'string', 'min' => 8],
 
-            ['nom', 'required'],
-            ['nom', 'string','min'=>3,'max'=>20],
-
-            ['prenom', 'required'],
-            ['prenom', 'string','min'=>3,'max'=>20],
-
-            ['sexe', 'required'],
+            [['nom','prenom'], 'string','min'=>3,'max'=>20],
             
-            ['ville', 'required'],
             ['ville', 'string','max'=>20],
 
-            ['role', 'required'],
             ['role', 'string','max'=>255],
 
-            ['DateDeNaissance', 'required'],
-            ['DateDeNaissance', 'date'],
+            ['date_naiss', 'safe'],
         ];
     }
 

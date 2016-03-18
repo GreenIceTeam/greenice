@@ -2,6 +2,10 @@
 
 namespace frontend\modules\member\controllers;
 
+use yii;
+use frontend\modules\member\models\SignupForm;
+
+
 class MemberController extends \yii\web\Controller
 {
     public function actionIndex()
