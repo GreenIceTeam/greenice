@@ -20,6 +20,14 @@ use yii\web\IdentityInterface;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
+ * @property string $ville 
+ * @property string $sexe
+ * @property string $nom
+ * @property string $prenom
+ * @property string $date_naiss
+ * @property string $date_insc
+ * @property string $last_active_time
+ * @property string $role 
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -40,16 +48,20 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function behaviors()
     {
-        return [
-            TimestampBehavior::className(),
-        ];
+        
+           return [
+TimestampBehavior::className(),
+];
+       
     }
 
     /**
      * @inheritdoc
      */
     public function rules()
+
     {
+<<<<<<< HEAD
         
         return [
             [['id_domaine', 'id_sous_dom', 'username', 'sexe', 'role', 'date_insc', 'email',  'password_hash'],'required' ],
@@ -57,8 +69,19 @@ class User extends ActiveRecord implements IdentityInterface
             ['sexe','in', 'range'=>['H', 'F']],
             ['role','in', 'range'=>['admin', 'member']],
             ['statut_social','in', 'range'=>['etudiant', 'travailleur']],
+=======
+        $date_actuel=date("y-m-d H:i:s");
+        return [
+            [['id_domaine', 'id_sous_dom', 'username', 'sexe',  'email'],'required' ],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Cet email existe déjà.'],
+            ['sexe','in', 'range'=>['H', 'F']],
+            ['role','in', 'range'=>['admin', 'member']],
+            ['role', 'default','value'=>'member'],
+>>>>>>> 65d30e1e3bfecf502c4f36016b506d51acdfecf4
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED, self::STATUS_ONLINE]]
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED, self::STATUS_ONLINE]],
+            ['date_insc', 'date','format'=>"y-m-d H:i:s"],
+            ['date_insc', 'default','value'=>$date_actuel]
         ];
     }
    
