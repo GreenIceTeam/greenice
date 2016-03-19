@@ -50,16 +50,18 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function rules()
     {
+        
         return [
-            [['id_domaine', 'id_sous_dom', 'username', 'sexe', 'role', 'date_insc', 'email', 'status'],'required' ],
+            [['id_domaine', 'id_sous_dom', 'username', 'sexe', 'role', 'date_insc', 'email',  'password_hash'],'required' ],
             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Cet email existe déjà.'],
             ['sexe','in', 'range'=>['H', 'F']],
             ['role','in', 'range'=>['admin', 'member']],
+            ['statut_social','in', 'range'=>['etudiant', 'travailleur']],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED, self::STATUS_ONLINE]]
         ];
     }
-
+   
     /**
      * @inheritdoc
      */

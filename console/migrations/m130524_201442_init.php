@@ -16,6 +16,7 @@ class m130524_201442_init extends Migration
          $this->createTable('{{%domaine}}', [
             'id_domaine' => $this->primaryKey(),
             'nom' => $this->string()->notNull(),
+             'type'=>$this->string(15)->notNull()->check("type in ('etude', 'travail', 'etudeEtTravail')"),
              'valide'=>$this->string(3)->notNull()->check("type in ('oui', 'non')")
         ],$tableOptions);
          
@@ -36,6 +37,7 @@ class m130524_201442_init extends Migration
             'username' => $this->string(20)->notNull(),
             'nom' => $this->string(20)->notNull(),
             'prenom' => $this->string(20),
+            'statut_social' => $this->string(15)->check("statut_social in ('etudiant','travailleur')"),
             'sexe' => $this->string(1)->notNull()->check("sexe in ('H','F')"),
             'role' => $this->string()->notNull()->check("role in ('admin','member')"),
             'ville' => $this->string(20),
