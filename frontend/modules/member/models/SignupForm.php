@@ -13,14 +13,14 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
-    public $id_domaine;
-    public $id_sous_dom;
+    public $domaine;
+    public $sousDomaine;
     public $nom;
     public $prenom;
     public $sexe;
-    public $date_naiss;
+    public $dateNaissance;
     public $ville;
-    public $role;
+    
 
 
     /**
@@ -40,16 +40,19 @@ class SignupForm extends Model
             ['email', 'string', 'max' => 255],
             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Cet email existe déjà.'],
 
-            [['password','nom','prenom','sexe','ville','role','date_naiss','id_domaine','id_sous_dom'], 'required'],
+            [['password','nom','prenom','sexe','ville','dateNaissance','domaine','sousDomaine'], 'required'],
             ['password', 'string', 'min' => 8],
 
             [['nom','prenom'], 'string','min'=>3,'max'=>20],
             
             ['ville', 'string','max'=>20],
+            ['sexe','in', 'range'=>['H', 'F']],
 
-            ['role', 'string','max'=>255],
+            
 
-            ['date_naiss', 'safe'],
+            ['dateNaissance', 'date','format'=>"yyyy-m-d "] 
+
+             
         ];
     }
 
@@ -67,13 +70,12 @@ class SignupForm extends Model
             $user->prenom = $this->prenom;
             $user->email = $this->email;
             $user->id_domaine = $this->domaine;
-            $user->id_sous_dom = $this->id_sous_dom;
+            $user->id_sous_dom = $this->sousDomaine;
             $user->sexe = $this->sexe;
-            $user->date_naiss = $this->date_naiss;
+            $user->date_naiss = $this->dateNaissance;
             $user->ville = $this->ville;
-            $user->role = $this->role;
-            $user->date_insc = NOW();
-            $user->last_active_time = Date();
+            
+            $user->last_active_time = date('y-m-d H:m:s');
             $user->setPassword($this->password);
             $user->generateAuthKey();
             if ($user->save()) {
