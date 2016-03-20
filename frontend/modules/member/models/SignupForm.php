@@ -18,7 +18,7 @@ class SignupForm extends Model
     public $nom;
     public $prenom;
     public $sexe;
-    public $dateNaissance;
+    public $dateNaiss;
     public $ville;
     
 
@@ -29,7 +29,7 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            ['username', 'filter', 'filter' => 'trim'],
+            //['username', 'filter', 'filter' => 'trim'],
             ['username', 'required'],
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Ce nom existe deja'],
             ['username', 'string', 'min' => 2, 'max' => 255],
@@ -40,7 +40,7 @@ class SignupForm extends Model
             ['email', 'string', 'max' => 255],
             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Cet email existe déjà.'],
 
-            [['password','nom','prenom','sexe','ville','dateNaissance','domaine','sousDomaine'], 'required'],
+            [['password','nom','prenom','sexe','ville','dateNaiss','domaine','sousDomaine'], 'required'],
             ['password', 'string', 'min' => 8],
 
             [['nom','prenom'], 'string','min'=>3,'max'=>20],
@@ -48,9 +48,7 @@ class SignupForm extends Model
             ['ville', 'string','max'=>20],
             ['sexe','in', 'range'=>['H', 'F']],
 
-            
-
-            ['dateNaissance', 'date','format'=>"yyyy-m-d "] 
+//            ['dateNaiss', 'date','format'=>"yyyy-m-d "] 
 
              
         ];
@@ -69,10 +67,10 @@ class SignupForm extends Model
             $user->nom = $this->nom;
             $user->prenom = $this->prenom;
             $user->email = $this->email;
-            $user->id_domaine = $this->domaine;
-            $user->id_sous_dom = $this->sousDomaine;
+            $user->id_domaine = 1; //$this->domaine;
+            $user->id_sous_dom = 1;// $this->sousDomaine;
             $user->sexe = $this->sexe;
-            $user->date_naiss = $this->dateNaissance;
+            $user->date_naiss = $this->dateNaiss;
             $user->ville = $this->ville;
             
             $user->last_active_time = date('y-m-d H:m:s');

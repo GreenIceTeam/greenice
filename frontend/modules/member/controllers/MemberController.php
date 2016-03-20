@@ -1,10 +1,9 @@
 <?php
 
 namespace frontend\modules\member\controllers;
+
 use Yii;
 use common\models\LoginForm;
-
-use yii;
 use frontend\modules\member\models\SignupForm;
 
 
@@ -18,20 +17,21 @@ class MemberController extends \yii\web\Controller
     {
         return $this->render('index');
     }
+    
     public function actionLogin()
     {
         if (!\Yii::$app->user->isGuest) {
-        return $this->goHome(); //render('index');
-     }
+            return $this->render('index');
+        }
+        
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack(); //render('index');
+            return $this->render('index');
         } else {
             return $this->render('login', [
                 'model' => $model,
             ]);
-        }
-  
+       }
     }
 
 public function actionLogout()
@@ -53,7 +53,6 @@ public function actionLogout()
                 }
             }
         }
-
         return $this->render('signup', ['model' => $model,]);
         
     }

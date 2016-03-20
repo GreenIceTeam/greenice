@@ -49,9 +49,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function behaviors()
     {
         
-           return [
-TimestampBehavior::className(),
-];
+           return [ TimestampBehavior::className()];
        
     }
 
@@ -61,27 +59,22 @@ TimestampBehavior::className(),
     public function rules()
 
     {
-<<<<<<< HEAD
-        
+
+        $date_actuel=date("y-m-d H:i:s");
         return [
-            [['id_domaine', 'id_sous_dom', 'username', 'sexe', 'role', 'date_insc', 'email',  'password_hash'],'required' ],
+         
+            [['username', 'sexe', 'email',  'password_hash'],'required' ],
+            [['id_domaine', 'id_sous_dom', 'statut_social'],'required', 'when'=>function($model){  return $model->role=='member';} ],
             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Cet email existe déjà.'],
             ['sexe','in', 'range'=>['H', 'F']],
             ['role','in', 'range'=>['admin', 'member']],
             ['statut_social','in', 'range'=>['etudiant', 'travailleur']],
-=======
-        $date_actuel=date("y-m-d H:i:s");
-        return [
-            [['id_domaine', 'id_sous_dom', 'username', 'sexe',  'email'],'required' ],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Cet email existe déjà.'],
-            ['sexe','in', 'range'=>['H', 'F']],
-            ['role','in', 'range'=>['admin', 'member']],
             ['role', 'default','value'=>'member'],
->>>>>>> 65d30e1e3bfecf502c4f36016b506d51acdfecf4
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+           ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED, self::STATUS_ONLINE]],
-            ['date_insc', 'date','format'=>"y-m-d H:i:s"],
+           // ['date_insc', 'date'],
             ['date_insc', 'default','value'=>$date_actuel]
+          
         ];
     }
    
