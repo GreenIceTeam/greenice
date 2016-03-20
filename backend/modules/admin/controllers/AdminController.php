@@ -42,24 +42,7 @@ public function actionLogout()
         return $this->goHome();
     }
     
-    public function actionSignup()
-    {
-       /* action signup use to create first user admin ;*/
-    $count=User::find()
-            ->where (['id' =>1])
-            ->count();
-    if ($count == 1) {
-        
-    return $this->render('index'); 
-    }
     
-    
-    
-   
-  
-               
-            
-    }
 }
 
    
