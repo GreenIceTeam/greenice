@@ -2,6 +2,7 @@
 
 namespace backend\modules\admin\controllers;
 
+use Yii;
 use yii\web\Controller;
 use common\models\User;
 
@@ -13,9 +14,36 @@ class AdminController extends Controller
     {
         return $this->render('index');
     }
+    
+    
+    public function actionLogin()
+    {
+        if (!\Yii::$app->user->isGuest) {
+            return $this->render('index');
+        }
+        
+        $model = new LoginForm();
+        if ($model->load(Yii::$app->request->post()) ) {
+            $isAdmin = User::find()->select('id')->where(['role'=>'admin', 'username'=>$model->username]);
+            if(!empty($isAdmin) && $model->login() ){
+                return $this->render('index');
+            }
+        } else {
+            return $this->render('login', [
+                'model' => $model,
+            ]);
+       }
+    }
+
+public function actionLogout()
+    {
+        Yii::$app->user->logout();
+
+        return $this->goHome();
+    }
+    
     public function actionSignup()
     {
-    
        /* action signup use to create first user admin ;*/
     $count=User::find()
             ->where (['id' =>1])
@@ -25,7 +53,7 @@ class AdminController extends Controller
     return $this->render('index');
     }
     
-    $user=new User();
+    $user=new User(); 
     $user->email= 'jospintedjou@yahoo.fr';
     $user->nom= 'admin1';
     
