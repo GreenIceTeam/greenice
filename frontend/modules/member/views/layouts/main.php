@@ -28,20 +28,20 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
+        'brandLabel' => 'GreenIce',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
+        ['label' => 'Home', 'url' => ['/member/member/index']],
+        ['label' => 'About', 'url' => ['/member/member/about']],
+        ['label' => 'Contact', 'url' => ['/member/member/contact']],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+        $menuItems[] = ['label' => 'Signup', 'url' => ['/member/member/signup']];
+        $menuItems[] = ['label' => 'Login', 'url' => ['/member/member/login']];
     } else {
         $menuItems[] = [
             'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
@@ -67,7 +67,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="pull-left">&copy; My Company <?= date('Y/m/d') ?></p>
 
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>

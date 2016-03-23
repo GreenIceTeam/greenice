@@ -28,24 +28,24 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
+        'brandLabel' => 'GreenIce',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
+        ['label' => 'Accueil', 'url' => ['/member/member/index']],
+        ['label' => 'A propos', 'url' => ['/member/member/about']],
+        ['label' => 'Contact', 'url' => ['/member/member/contact']],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+        $menuItems[] = ['label' => 'Inscription', 'url' => ['/member/member/signup']];
+        $menuItems[] = ['label' => 'Connexion', 'url' => ['/member/member/login']];
     } else {
         $menuItems[] = [
             'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-            'url' => ['/site/logout'],
+            'url' => ['/member/member/index'],
             'linkOptions' => ['data-method' => 'post']
         ];
     }

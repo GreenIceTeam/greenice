@@ -4,6 +4,8 @@ namespace frontend\modules\member\controllers;
 
 use yii;
 use frontend\modules\member\models\SignupForm;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 
 
 /**
@@ -16,6 +18,36 @@ class MemberController extends \yii\web\Controller
     {
         return $this->render('index');
     }
+
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['logout', 'signup'],
+                'rules' => [
+                    [
+                        'actions' => ['signup'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
+
 
     public function actionSignup()
     {
