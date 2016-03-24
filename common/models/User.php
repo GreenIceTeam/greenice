@@ -63,9 +63,9 @@ class User extends ActiveRecord implements IdentityInterface
         $date_actuel=date("y-m-d H:i:s");
         return [
          
-            [['username', 'sexe', 'email',  'password_hash'],'required' ],
+            [['username', 'sexe', 'email','password'],'required','skipOnError'=>false,'skipOnEmpty'=>false ],
             [['id_domaine', 'id_sous_dom', 'statut_social'],'required', 'when'=>function($model){  return $model->role=='member';} ],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Cet email existe déjà.'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Cet email existe déjà.','skipOnError'=>false,'skipOnEmpty'=>false],
             ['sexe','in', 'range'=>['H', 'F']],
             ['role','in', 'range'=>['admin', 'member']],
             ['statut_social','in', 'range'=>['etudiant', 'travailleur']],
@@ -139,7 +139,6 @@ class User extends ActiveRecord implements IdentityInterface
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
         return $timestamp + $expire >= time();
     }
-
     /**
      * @inheritdoc
      */
@@ -208,4 +207,6 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+    
+   
 }
