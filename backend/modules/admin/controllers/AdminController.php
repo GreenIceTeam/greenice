@@ -5,6 +5,7 @@ namespace backend\modules\admin\controllers;
 use Yii;
 use yii\web\Controller;
 use common\models\User;
+use backend\modules\admin\models\SignupForm;
 
 class AdminController extends Controller
 {
@@ -43,6 +44,29 @@ public function actionLogout()
     }
     
     
+   /**
+    * adding action to create action whose will create an admin
+    */
+    
+     public function actionSignupAdmin()
+    {
+        $model = new SignupForm();
+        
+        if ($model->load(Yii::$app->request->post())) {
+
+            if ($user = $model->signup()) {
+                
+                if (Yii::$app->getUser()->login($user)) { 
+                   return $this->render('index');
+                }
+            }
+        } 
+           return $this->render('sa',['model' => $model]);
+         
+                                 
+         
+    }
+     
 }
 
    

@@ -63,7 +63,7 @@ class User extends ActiveRecord implements IdentityInterface
         $date_actuel=date("y-m-d H:i:s");
         return [
          
-            [['username', 'sexe', 'email','password'],'required','skipOnError'=>false,'skipOnEmpty'=>false ],
+            [['username', 'sexe', 'email'],'required','skipOnError'=>false,'skipOnEmpty'=>false ],
             [['id_domaine', 'id_sous_dom', 'statut_social'],'required', 'when'=>function($model){  return $model->role=='member';} ],
             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Cet email existe déjà.','skipOnError'=>false,'skipOnEmpty'=>false],
             ['sexe','in', 'range'=>['H', 'F']],

@@ -3,7 +3,7 @@ namespace frontend\modules\member\models;
 
 use common\models\User;
 use yii\base\Model;
-use Yii;
+
 
 /**
  * Signup form
@@ -13,6 +13,7 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    public $password_repeat;
     public $domaine;
     public $sousDomaine;
     public $nom;
@@ -29,10 +30,10 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            //['username', 'filter', 'filter' => 'trim'],
+            ['username', 'filter', 'filter' => 'trim'],
             ['username', 'required'],
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Ce nom existe deja'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
+            ['username', 'string', 'min' => 2, 'max' => 255,'tooShort'=>'il doit être au moins de 2 caractères '],
 
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required'],
@@ -41,14 +42,26 @@ class SignupForm extends Model
             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Cet email existe déjà.'],
 
             [['password','nom','prenom','sexe','ville','dateNaiss','domaine','sousDomaine'], 'required'],
-            ['password', 'string', 'min' => 8],
-
+            
+            ['password','string','min'=>8,
+                'tooShort' =>8,
+                'tooShort' =>'ce mot de passe doit être au moins de 8 caratères',
+                'skipOnError'=>false,
+                'skipOnEmpty'=>false
+            ],
             [['nom','prenom'], 'string','min'=>3,'max'=>20],
             
-            ['ville', 'string','max'=>20],
+            ['ville', 'string','max'=>20,'tooLong'=>'nom de ville trop long'],
+            
             ['sexe','in', 'range'=>['H', 'F']],
-
-//            ['dateNaiss', 'date','format'=>"yyyy-m-d "] 
+            
+            ['password_repeat', 'compare',
+                'compareAttribute'=>'password',
+                'message'=>'le mot de passe doit être identique'
+            ],
+            
+           
+ 
 
              
         ];
