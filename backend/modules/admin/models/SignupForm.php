@@ -27,13 +27,13 @@ class SignupForm extends Model
         return [
             ['username', 'filter', 'filter' => 'trim'],
             ['username', 'required','message'=>'ce champ doit être rempli','skipOnError'=>false,'skipOnEmpty'=>false],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'ce pseudo est déjà utilisé.'],
             ['email', 'filter', 'filter' => 'trim'],
             ['name','required','message'=>'ce champ doit être rempli','skipOnError'=>false,'skipOnEmpty'=>false],
             ['email', 'required','message'=>'ce champ doit être rempli','skipOnError'=>false,'skipOnEmpty'=>false],
             ['email', 'email'], 
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'cet email est déjà utilisé.'],
         
 /**
  *  adding the rules that verify the spelling of password and another space on my form
