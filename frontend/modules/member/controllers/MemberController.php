@@ -7,6 +7,8 @@ use yii\helpers\ArrayHelper;
 use common\models\SousDomaine;
 use common\models\LoginForm;
 use frontend\modules\member\models\SignupForm;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 
 
 /**
@@ -42,6 +44,36 @@ public function actionLogout()
 
         return $this->goHome();
     }
+
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['logout', 'signup'],
+                'rules' => [
+                    [
+                        'actions' => ['signup'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
+
 
     public function actionSignup()
     {
