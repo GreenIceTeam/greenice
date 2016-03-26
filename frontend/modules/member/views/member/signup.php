@@ -46,7 +46,9 @@ $this->registerCss('.field-signupform-domaineactivite{display: none}');
             <?= $a = $form->field($model, 'email')->textInput()->label('email')?> 
             <?= $form->field($model, 'username')->label('nom d\'utilisateur') ?>
             <?= $form->field($model, 'password')->passwordInput()->label('mot de passe') ?>
-            <?= $form->field($model, 'statutSocial')->label('Vous êtes:')->radioList(['etudiant'=>'etudiant', 'travailleur'=>'travailleur'], 
+                   <?= $form->field($model, 'password_repeat')->passwordInput()->label('Retapez votre mot de passe') ?>
+    
+                    <?= $form->field($model, 'statutSocial')->label('Vous êtes:')->radioList(['etudiant'=>'etudiant', 'travailleur'=>'travailleur'], 
                                                                                         ['item'=>function($index, $label, $name, $checked, $value){     
                                                                                                                $res = '<label class="modal-info">'
                                                                                                                        . '<input type="radio" name="'.$name.'" value="'.$value.'" id="statut'.$index.'">'

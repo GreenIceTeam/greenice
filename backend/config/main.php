@@ -24,9 +24,6 @@ return [
 		'stats' => [
             'class' => 'backend\modules\stats\Stats',
         ],
-		'critique' => [
-            'class' => 'frontend\modules\critique\Critique',
-        ],
     ],
     'components' => [
         'user' => [

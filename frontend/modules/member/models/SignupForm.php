@@ -3,7 +3,7 @@ namespace frontend\modules\member\models;
 
 use common\models\User;
 use yii\base\Model;
-use Yii;
+
 
 /**
  * Signup form
@@ -23,7 +23,8 @@ class SignupForm extends Model
     public $sexe;
     public $dateNaiss;
     public $ville;
-    
+    public $password_repeat;
+
 
 
     /**
@@ -32,7 +33,7 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            //['username', 'filter', 'filter' => 'trim'],
+            ['username', 'filter', 'filter' => 'trim'],
             
             [['username', 'email', 'password','nom','prenom','sexe','ville','dateNaiss',  'sousDomaine', 'statutSocial'], 'required', 'message'=>'Ce champ est obligatoire'],
             
@@ -63,9 +64,15 @@ class SignupForm extends Model
             ['sexe','in', 'range'=>['H', 'F']],
 
 //            ['dateNaiss', 'date','format'=>"yyyy-m-d "] 
+            
 
-             
-        ];
+            
+            ['password_repeat', 'compare',
+                'compareAttribute'=>'password',
+                'message'=>'le mot de passe doit être identique'
+            ],
+            
+     ];
     }
 
     /**

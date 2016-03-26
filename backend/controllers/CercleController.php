@@ -8,6 +8,7 @@ use common\models\CercleSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * CercleController implements the CRUD actions for Cercle model.
@@ -21,6 +22,18 @@ class CercleController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                ],
+            ],
+            
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index','create','view','update','delete'],
+                'rules' => [
+                    
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
                 ],
             ],
         ];

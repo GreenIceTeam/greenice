@@ -8,6 +8,7 @@ use common\models\SousDomaineSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * SousDomaineController implements the CRUD actions for SousDomaine model.
@@ -21,6 +22,18 @@ class SousDomaineController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                ],
+            ],
+            
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index','create','view','update','delete'],
+                'rules' => [
+                    
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
                 ],
             ],
         ];
