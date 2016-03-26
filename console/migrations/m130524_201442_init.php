@@ -16,7 +16,7 @@ class m130524_201442_init extends Migration
          $this->createTable('{{%domaine}}', [
             'id_domaine' => $this->primaryKey(),
             'nom' => $this->string()->notNull(),
-             'type'=>$this->string(15)->notNull()->check("type in ('etude', 'travail', 'etudeEtTravail')"),
+             'type'=>$this->string(15)->notNull()->check("type in ('etude', 'travail', 'mixte')"),
              'valide'=>$this->string(3)->notNull()->check("type in ('oui', 'non')")
         ],$tableOptions);
          

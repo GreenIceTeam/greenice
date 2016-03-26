@@ -27,6 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id_domaine',
             'nom',
+            'type',
             'valide',
 
             ['class' => 'yii\grid\ActionColumn'],

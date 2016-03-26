@@ -3,6 +3,8 @@
 namespace frontend\modules\member\controllers;
 
 use Yii;
+use yii\helpers\ArrayHelper;
+use common\models\SousDomaine;
 use common\models\LoginForm;
 use frontend\modules\member\models\SignupForm;
 
@@ -54,6 +56,36 @@ public function actionLogout()
             }
         }
         return $this->render('signup', ['model' => $model,]);
+        
+    }
+    
+    /** Retourne du code Html contenant tous les sous-domaines d'un domaine
+     * @param int idDomain id du domaine dont on va retourner les sous-domains enveloppés dans du code html
+     * @return Html le code Html des sous domaines
+     */
+    
+    public function actionLists(){
+        
+        if(\Yii::$app->request->isAjax){
+                $idDomaine = (integer)Yii::$app->request->getQueryParam('idDomaine');
+        
+                
+                        $sousDoms =SousDomaine::find()->where(['id_domaine'=>$idDomaine])->orderBy('nom desc')->all();
+                        $count=SousDomaine::find()->where(['id_domaine'=>$idDomaine])->orderBy('nom desc')->count();
+
+                 //   echo \yii\helpers\Url::toRoute('member/member/list-sous-domaines');
+                        if($count>0){
+
+                                    foreach ($sousDoms as $sousDom){
+                                        echo '<option id="'.$sousDom->id_sous_dom.'">'.$sousDom->nom.'</option>';
+                                    }
+                          }  else {
+
+                                echo 'pas de sous domaine pour ce domaine';
+                          }
+                }  else {
+                            echo '<option>-</option>';
+                }
         
     }
 
