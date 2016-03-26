@@ -8,6 +8,7 @@ use common\models\RecevoirMessSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * RecevoirMessController implements the CRUD actions for RecevoirMess model.
@@ -21,6 +22,18 @@ class RecevoirMessController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                ],
+            ],
+            
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index','create','view','update','delete'],
+                'rules' => [
+                    
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
                 ],
             ],
         ];

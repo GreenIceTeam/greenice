@@ -8,6 +8,7 @@ use common\models\CritiqueSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * CritiqueController implements the CRUD actions for Critique model.
@@ -21,6 +22,18 @@ class CritiqueController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                ],
+            ],
+            
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index','create','view','update','delete'],
+                'rules' => [
+                    
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
                 ],
             ],
         ];
