@@ -70,7 +70,7 @@ public function actionLogout()
                 'actions' => [
                     'logout' => ['post'],
                 ],
-            ],
+            ], 
         ];
     }
 
@@ -104,20 +104,21 @@ public function actionLogout()
                 
                         $sousDoms =SousDomaine::find()->where(['id_domaine'=>$idDomaine])->orderBy('nom desc')->all();
                         $count=SousDomaine::find()->where(['id_domaine'=>$idDomaine])->orderBy('nom desc')->count();
-
-                 //   echo \yii\helpers\Url::toRoute('member/member/list-sous-domaines');
+                        $res = '<option value="">Choisir un sous-domaine</option> ';
+                        
                         if($count>0){
 
                                     foreach ($sousDoms as $sousDom){
-                                        echo '<option id="'.$sousDom->id_sous_dom.'">'.$sousDom->nom.'</option>';
+                                        $res .= '<option value="'.$sousDom->id_sous_dom.'">'.$sousDom->nom.'</option>';
                                     }
+                                    
                           }  else {
 
-                                echo 'pas de sous domaine pour ce domaine';
+                                $res = 'pas de sous domaine pour ce domaine';
                           }
-                }  else {
-                            echo '<option>-</option>';
-                }
+                          
+                          echo $res;
+              }  
         
     }
 

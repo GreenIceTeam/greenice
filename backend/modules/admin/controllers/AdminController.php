@@ -5,6 +5,7 @@ namespace backend\modules\admin\controllers;
 use Yii;
 use yii\web\Controller;
 use common\models\User;
+use common\models\LoginForm;
 use backend\modules\admin\models\SignupForm;
 
 class AdminController extends Controller

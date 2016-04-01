@@ -17,6 +17,7 @@ $this->title = 'Signup';
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerCss('.field-signupform-domaineetude{display: none}');
 $this->registerCss('.field-signupform-domaineactivite{display: none}');
+$this->registerCss('.field-signupform-sousdomaine{display: none}');
 
 ?>
 <div class="site-signup">
@@ -58,29 +59,31 @@ $this->registerCss('.field-signupform-domaineactivite{display: none}');
                     ?>
                 <?= $form->field($model, 'domaineEtude')->label('domaine d\'étude', ['id'=>'labEtud'] ) 
                                                                                       ->dropDownList(
-                                                                                               ArrayHelper::map(Domaine::find()->where(['type'=>['etude', 'mixte']])->all(), 'id_domaine', 'nom')
+                                                                                      ArrayHelper::merge([''=>'Choisir une option'], ArrayHelper::map(Domaine::find()->where(['type'=>['etude', 'mixte']])->all(), 'id_domaine', 'nom'))
                                                                                               , ['onchange'=>  '$.post("index.php?r=member/member/lists&idDomaine=" + $(this).val(),'
                                                                                                   .'function (data){ 
                                                                                                                 $("#signupform-sousdomaine").html(data); 
-                                                                                                                //alert(data);
+                                                                                                                $(".field-signupform-sousdomaine").css({"display" : "block"});
                                                                                                       })'
                                                                                              ]);
                                                                                      ?>
             
-            <?= $form->field($model, 'domaineActivite')->dropDownList(
-                                                                                        ArrayHelper::map(Domaine::find()->where(['type'=>['travail', 'mixte']])->all(), 'id_domaine', 'nom')   )
-                                                                                        ->label('domaine d\'activité', ['id'=>'labAct'] );   ?>
+            <?= $form->field($model, 'domaineActivite')->label('domaine d\'activité', ['id'=>'labAct'] )
+                                                                                   ->dropDownList(
+                                                                                       ArrayHelper::merge([''=>'Choisir une option'], ArrayHelper::map(Domaine::find()->where(['type'=>['travail', 'mixte']])->all(), 'id_domaine', 'nom'))
+                                                                                            , ['onchange'=>  '$.post("index.php?r=member/member/lists&idDomaine=" + $(this).val(),'
+                                                                                                  .'function (data){ 
+                                                                                                                $("#signupform-sousdomaine").html(data); 
+                                                                                                                $(".field-signupform-sousdomaine").css({"display" : "block"});
+                                                                                                      })'
+                                                                                             ]);
+                                                                                         ?>
             
-            <?= $form->field($model, 'sousDomaine')->dropDownList(
-                                                                                        ArrayHelper::map(SousDomaine::find()->where(['id_domaine'=>$model->domaineEtude])->all(), 'id_sous_dom', 'nom')   )
-                                                                                        ->label('sous domaine', ['id'=>'labSousDom']);  ?>
-            
-            
-                <?= $form->field($model, 'nom')->textInput() ?>
-            
-                <?= $form->field($model, 'prenom')->textInput() ?>
-                
-                
+            <?= $form->field($model, 'sousDomaine')->label('sous domaine', ['id'=>'labSousDom'])
+                                                                               ->dropDownList(
+                                                                                        ArrayHelper::map(SousDomaine::find()->where(['id_domaine'=>$model->domaineEtude])->all(), 'id_sous_dom', 'nom')   );
+                                                                                          ?>
+
             
                 <?= $form->field($model, 'ville')->textInput() ?>
             
