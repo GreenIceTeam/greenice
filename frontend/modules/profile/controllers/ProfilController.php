@@ -1,10 +1,12 @@
 <?php
 
-namespace frontend\modules\critique_membre\controllers;
+namespace frontend\modules\profile\controllers;
 
 use yii\web\Controller;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 
-class DefaultController extends Controller
+class ProfilController extends Controller
 {
 	public function behaviors()
     {
@@ -13,18 +15,23 @@ class DefaultController extends Controller
                 'class' => AccessControl::className(),
                 'only' => ['logout', 'signup', 'createAdmin'],
                 'rules' => [
-                    [ 'actions' => ['signup'],
+                    [
+                        'actions' => ['signup'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
-                    ['actions' => ['logout', 'createAdmin'],
+                    [
+                        'actions' => ['logout', 'createAdmin'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
                 ],
             ],
-            'verbs' => ['class' => VerbFilter::className(),
-						'actions' => ['logout' => ['post']],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
             ], 
         ];
     }

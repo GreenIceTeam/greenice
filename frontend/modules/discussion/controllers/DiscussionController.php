@@ -1,10 +1,10 @@
 <?php
 
-namespace frontend\modules\critique_membre\controllers;
+namespace frontend\modules\discussion\controllers;
 
 use yii\web\Controller;
 
-class DefaultController extends Controller
+class DiscussionController extends Controller
 {
 	public function behaviors()
     {

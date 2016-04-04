@@ -45,7 +45,7 @@ AppAsset::register($this);
     } else {
         $menuItems[] = [
             'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-            'url' => ['/member/member/index'],
+            'url' => ['/member/member/logout'],
             'linkOptions' => ['data-method' => 'post']
         ];
     }

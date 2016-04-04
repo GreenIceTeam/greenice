@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\modules\critique_membre\controllers;
+namespace frontend\modules\publication\controllers;
 
 use yii\web\Controller;
 

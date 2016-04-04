@@ -31,7 +31,7 @@ $this->registerCss('.field-signupform-sousdomaine{display: none}');
                 
                 <?= $form->field($model, 'nom')->textInput() ?>
                 <?= $form->field($model, 'prenom')->textInput() ?>
-                <?=' Né(e) le'.DatePicker::widget([
+                <?php /**' Né(e) le'.DatePicker::widget([
                             'language' => 'fr',
                              'model' => $model,
                              'attribute' => 'dateNaiss',
@@ -39,7 +39,7 @@ $this->registerCss('.field-signupform-sousdomaine{display: none}');
                             'clientOptions' => [
                                 'dateFormat' => 'yy-mm-dd']
                       ])
-                   ?>
+                */   ?>
             <?= $form->field($model, 'sexe')->dropDownList(
 					['H'=>'Homme', 'F'=>'Femme']
 				) ?>

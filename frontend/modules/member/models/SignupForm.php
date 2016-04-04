@@ -21,7 +21,7 @@ class SignupForm extends Model
     public $nom;
     public $prenom;
     public $sexe;
-    public $dateNaiss;
+    //public $dateNaiss;
     public $ville;
     public $password_repeat;
 
@@ -35,7 +35,7 @@ class SignupForm extends Model
         return [
             ['username', 'filter', 'filter' => 'trim'],
             
-            [['username', 'email', 'password','nom','prenom','sexe','ville','dateNaiss',  'sousDomaine', 'statutSocial'], 'required', 'message'=>'Ce champ est obligatoire'],
+            [['username', 'email', 'password','nom','prenom','sexe','ville',  'sousDomaine', 'statutSocial'], 'required', 'message'=>'Ce champ est obligatoire'],
             
             ['domaineActivite', 'required',  'when'=>function($model){ return $model->statutSocial == 'travailleur'; },                                                       
                                                             'whenClient'=>'function(attribute, value){ return $("#labAct").parent().css("display") != "none"; }'
@@ -89,10 +89,12 @@ class SignupForm extends Model
             $user->prenom = $this->prenom;
             $user->email = $this->email;
             $user->id_domaine = empty($this->domaineEtude) ? $this->domaineActivite : $this->domaineEtude;
-            $user->id_sous_dom = $this->sousDomaine;
+			$user->id_sous_dom = $this->sousDomaine;
             $user->sexe = $this->sexe;
-            $user->date_naiss = $this->dateNaiss;
+           // $user->date_naiss = $this->dateNaiss;
             $user->ville = $this->ville;
+            $user->statut_social = $this->statutSocial;
+			
             
             $user->last_active_time = date('y-m-d H:m:s');
             $user->setPassword($this->password);
