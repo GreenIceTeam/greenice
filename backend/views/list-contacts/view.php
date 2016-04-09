@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Cercle */
+/* @var $model common\models\ListContacts */
 
-$this->title = $model->id_cercle;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Cercles'), 'url' => ['index']];
+$this->title = $model->id_list;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'List Contacts'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="cercle-view">
+<div class="list-contacts-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id_cercle], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id_cercle], [
+        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id_list], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id_list], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id_cercle',
+            'id_list',
             'id_createur',
             'id_supp',
             'nom',

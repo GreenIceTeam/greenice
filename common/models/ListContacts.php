@@ -5,28 +5,28 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "cercle".
+ * This is the model class for table "{{%list_contacts}}".
  *
- * @property integer $id_cercle
+ * @property integer $id_list
  * @property integer $id_createur
  * @property integer $id_supp
  * @property string $nom
  * @property string $type
  * @property string $date_creation
  *
- * @property AppartenirCercle[] $appartenirCercles
+ * @property AppartenirListContacts[] $appartenirListContacts
  * @property User[] $idUsers
  * @property User $idSupp
  * @property User $idCreateur
  */
-class Cercle extends \yii\db\ActiveRecord
+class ListContacts extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'cercle';
+        return '{{%list_contacts}}';
     }
 
     /**
@@ -37,7 +37,6 @@ class Cercle extends \yii\db\ActiveRecord
         return [
             [['id_createur', 'id_supp'], 'integer'],
             [['date_creation'], 'safe'],
-            [['type'], 'in', 'range'=>['amis', 'famille', 'connaissance', 'collegue']],
             [['nom', 'type'], 'string', 'max' => 30]
         ];
     }
@@ -48,7 +47,7 @@ class Cercle extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_cercle' => Yii::t('app', 'Id Cercle'),
+            'id_list' => Yii::t('app', 'Id List'),
             'id_createur' => Yii::t('app', 'Id Createur'),
             'id_supp' => Yii::t('app', 'Id Supp'),
             'nom' => Yii::t('app', 'Nom'),
@@ -60,9 +59,9 @@ class Cercle extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAppartenirCercles()
+    public function getAppartenirListContacts()
     {
-        return $this->hasMany(AppartenirCercle::className(), ['id_cercle' => 'id_cercle']);
+        return $this->hasMany(AppartenirListContacts::className(), ['id_list' => 'id_list']);
     }
 
     /**
@@ -70,7 +69,7 @@ class Cercle extends \yii\db\ActiveRecord
      */
     public function getIdUsers()
     {
-        return $this->hasMany(User::className(), ['id' => 'id_user'])->viaTable('appartenir_cercle', ['id_cercle' => 'id_cercle']);
+        return $this->hasMany(User::className(), ['id' => 'id_user'])->viaTable('{{%appartenir_list_contacts}}', ['id_list' => 'id_list']);
     }
 
     /**
@@ -87,5 +86,14 @@ class Cercle extends \yii\db\ActiveRecord
     public function getIdCreateur()
     {
         return $this->hasOne(User::className(), ['id' => 'id_createur']);
+    }
+
+    /**
+     * @inheritdoc
+     * @return ListContactsQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new ListContactsQuery(get_called_class());
     }
 }

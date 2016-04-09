@@ -3,6 +3,8 @@
 namespace frontend\modules\communaute\controllers;
 
 use yii\web\Controller;
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 class CommunityController extends Controller
 {

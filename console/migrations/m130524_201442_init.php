@@ -84,25 +84,25 @@ class m130524_201442_init extends Migration
           $this->addForeignKey('fk1_appartenir_comm', 'appartenir_comm', 'id_comm', 'communaute', 'id_comm');
           
           
-           $this->createTable('{{%cercle}}', [  
-            'id_cercle' => $this->primaryKey(),
+           $this->createTable('{{%list_contacts}}', [  
+            'id_list' => $this->primaryKey(),
             'id_createur' => $this->integer(11),
             'id_supp' => $this->integer(11),
             'nom' => $this->string(30),
             'type' => $this->string(30)->check("type in('amis', 'famille', 'connaissance', 'collegue')"),
              'date_creation'=> $this->dateTime()
           ],$tableOptions);
-            $this->addForeignKey('fk1_cercle', 'cercle', 'id_createur', 'user', 'id');
-            $this->addForeignKey('fk2_cercle', 'cercle', 'id_supp', 'user', 'id');
+            $this->addForeignKey('fk1_list_contacts', 'list_contacts', 'id_createur', 'user', 'id');
+            $this->addForeignKey('fk2_list_contacts', 'list_contacts', 'id_supp', 'user', 'id');
            
             
-            $this->createTable('{{%appartenir_cercle}}', [
+            $this->createTable('{{%appartenir_list_contacts}}', [
             'id_user' => $this->integer(11),
-            'id_cercle' => $this->integer(11)
+            'id_list' => $this->integer(11)
           ],$tableOptions);
-           $this->addPrimaryKey('pk1_appartenir_cercle', 'appartenir_cercle', ['id_user', 'id_cercle']);
-           $this->addForeignKey('fk1_appartenir_cercle', 'appartenir_cercle', 'id_user', 'user', 'id');
-           $this->addForeignKey('fk2_appartenir_cercle', 'appartenir_cercle', 'id_cercle', 'cercle', 'id_cercle');
+           $this->addPrimaryKey('pk1_appartenir_list_contacts', 'appartenir_list_contacts', ['id_user', 'id_list']);
+           $this->addForeignKey('fk1_appartenir_list_contacts', 'appartenir_list_contacts', 'id_user', 'user', 'id');
+           $this->addForeignKey('fk2_appartenir_list_contacts', 'appartenir_list_contacts', 'id_list', 'list_contacts', 'id_list');
            
            
            $this->createTable('{{%publication}}', [
@@ -194,7 +194,8 @@ class m130524_201442_init extends Migration
             'id_dest' => $this->integer(11),
             'id_mess' => $this->integer(11),
             'affiche' => $this->string(3)->notNull()->check("type in ('oui', 'non')"),
-            'lu' => $this->string(3)->notNull()->check("type in ('oui', 'non')")
+            'lu' => $this->string(3)->notNull()->check("type in ('oui', 'non')"),
+            'nouveau' => $this->string(3)->notNull()->check("type in ('oui', 'non')")
           ],$tableOptions);
             $this->addPrimaryKey('pk1_recevoir_mess', 'recevoir_mess', ['id_dest', 'id_mess']);
             $this->addForeignKey('fk1_recevoir_mess', 'recevoir_mess', 'id_dest', 'user', 'id');
@@ -227,7 +228,7 @@ class m130524_201442_init extends Migration
         $this->dropTable('{{%aimer_comment}}');
         $this->dropTable('{{%aimer_publ}}');
         $this->dropTable('{{%recevoir_publ}}');
-        $this->dropTable('{{%appartenir_cercle}}');
+        $this->dropTable('{{%appartenir_list_contacts}}');
         $this->dropTable('{{%appartenir_comm}}');
         $this->dropTable('{{%comm_lier_sous_dom}}');
         $this->dropTable('{{%recevoir_mess}}');
@@ -235,7 +236,7 @@ class m130524_201442_init extends Migration
         $this->dropTable('{{%critique}}');
         
         $this->dropTable('{{%communaute}}');
-        $this->dropTable('{{%cercle}}');
+        $this->dropTable('{{%list_contacts}}');
         
         $this->dropTable('{{%commentaire}}');
         $this->dropTable('{{%fichier}}');

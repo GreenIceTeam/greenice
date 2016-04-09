@@ -27,8 +27,8 @@ return [
 		'message' => [
             'class' => 'frontend\modules\message\Message',
         ],
-		'cercle' => [
-            'class' => 'frontend\modules\cercle\Cercle',
+		'contact' => [
+            'class' => 'frontend\modules\contact\Contact',
         ],
 		  'discussion' => [
             'class' => 'frontend\modules\discussion\Discussion',

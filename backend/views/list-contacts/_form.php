@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Cercle */
+/* @var $model common\models\ListContacts */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="cercle-form">
+<div class="list-contacts-form">
 
     <?php $form = ActiveForm::begin(); ?>
 

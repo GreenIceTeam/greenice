@@ -3,17 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\Cercle;
-use common\models\CercleSearch;
+use common\models\ListContacts;
+use common\models\ListContactsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 
 /**
- * CercleController implements the CRUD actions for Cercle model.
+ * ListContactsController implements the CRUD actions for ListContacts model.
  */
-class CercleController extends Controller
+class ListContactsController extends Controller
 {
     public function behaviors()
     {
@@ -24,28 +23,16 @@ class CercleController extends Controller
                     'delete' => ['post'],
                 ],
             ],
-            
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['index','create','view','update','delete'],
-                'rules' => [
-                    
-                    [
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
         ];
     }
 
     /**
-     * Lists all Cercle models.
+     * Lists all ListContacts models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new CercleSearch();
+        $searchModel = new ListContactsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -55,7 +42,7 @@ class CercleController extends Controller
     }
 
     /**
-     * Displays a single Cercle model.
+     * Displays a single ListContacts model.
      * @param integer $id
      * @return mixed
      */
@@ -67,16 +54,16 @@ class CercleController extends Controller
     }
 
     /**
-     * Creates a new Cercle model.
+     * Creates a new ListContacts model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Cercle();
+        $model = new ListContacts();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_cercle]);
+            return $this->redirect(['view', 'id' => $model->id_list]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -85,7 +72,7 @@ class CercleController extends Controller
     }
 
     /**
-     * Updates an existing Cercle model.
+     * Updates an existing ListContacts model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -95,7 +82,7 @@ class CercleController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_cercle]);
+            return $this->redirect(['view', 'id' => $model->id_list]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -104,7 +91,7 @@ class CercleController extends Controller
     }
 
     /**
-     * Deletes an existing Cercle model.
+     * Deletes an existing ListContacts model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -117,15 +104,15 @@ class CercleController extends Controller
     }
 
     /**
-     * Finds the Cercle model based on its primary key value.
+     * Finds the ListContacts model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Cercle the loaded model
+     * @return ListContacts the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Cercle::findOne($id)) !== null) {
+        if (($model = ListContacts::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

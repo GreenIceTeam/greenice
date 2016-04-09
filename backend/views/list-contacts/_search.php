@@ -4,18 +4,18 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\CercleSearch */
+/* @var $model common\models\ListContactsSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="cercle-search">
+<div class="list-contacts-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id_cercle') ?>
+    <?= $form->field($model, 'id_list') ?>
 
     <?= $form->field($model, 'id_createur') ?>
 

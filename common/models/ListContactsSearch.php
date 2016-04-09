@@ -5,12 +5,12 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Cercle;
+use common\models\ListContacts;
 
 /**
- * CercleSearch represents the model behind the search form about `common\models\Cercle`.
+ * ListContactsSearch represents the model behind the search form about `common\models\ListContacts`.
  */
-class CercleSearch extends Cercle
+class ListContactsSearch extends ListContacts
 {
     /**
      * @inheritdoc
@@ -18,7 +18,7 @@ class CercleSearch extends Cercle
     public function rules()
     {
         return [
-            [['id_cercle', 'id_createur', 'id_supp'], 'integer'],
+            [['id_list', 'id_createur', 'id_supp'], 'integer'],
             [['nom', 'type', 'date_creation'], 'safe'],
         ];
     }
@@ -41,7 +41,7 @@ class CercleSearch extends Cercle
      */
     public function search($params)
     {
-        $query = Cercle::find();
+        $query = ListContacts::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -56,7 +56,7 @@ class CercleSearch extends Cercle
         }
 
         $query->andFilterWhere([
-            'id_cercle' => $this->id_cercle,
+            'id_list' => $this->id_list,
             'id_createur' => $this->id_createur,
             'id_supp' => $this->id_supp,
             'date_creation' => $this->date_creation,

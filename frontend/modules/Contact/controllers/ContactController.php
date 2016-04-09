@@ -1,10 +1,12 @@
 <?php
 
-namespace frontend\modules\cercle\controllers;
+namespace frontend\modules\contact\controllers;
 
 use yii\web\Controller;
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
-class CircleController extends Controller
+class ContactController extends Controller
 {
 	public function behaviors()
     {
