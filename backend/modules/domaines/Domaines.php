@@ -1,10 +1,10 @@
 <?php
 
-namespace backend\modules\domaine;
+namespace backend\modules\domaines;
 
-class Domaine extends \yii\base\Module
+class Domaines extends \yii\base\Module
 {
-    public $controllerNamespace = 'backend\modules\domaine\controllers';
+    public $controllerNamespace = 'backend\modules\domaines\controllers';
 
     public function init()
     {

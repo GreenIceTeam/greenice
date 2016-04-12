@@ -1,0 +1,299 @@
+2016-03-27 01:39:04 [127.0.0.1][-][8tlsuahcsg5a91l1cme54nj320][error][yii\base\InvalidParamException] exception 'yii\base\InvalidParamException' with message 'The view file does not exist: C:\wamp\www\greenice\backend\modules\views\site\login.php' in C:\wamp\www\greenice\vendor\yiisoft\yii2\base\View.php:226
+Stack trace:
+#0 C:\wamp\www\greenice\vendor\yiisoft\yii2\base\View.php(149): yii\base\View->renderFile('C:\\wamp\\www\\gre...', Array, Object(backend\controllers\SiteController))
+#1 C:\wamp\www\greenice\vendor\yiisoft\yii2\base\Controller.php(371): yii\base\View->render('login', Array, Object(backend\controllers\SiteController))
+#2 C:\wamp\www\greenice\backend\controllers\SiteController.php(73): yii\base\Controller->render('login', Array)
+#3 [internal function]: backend\controllers\SiteController->actionLogin()
+#4 C:\wamp\www\greenice\vendor\yiisoft\yii2\base\InlineAction.php(55): call_user_func_array(Array, Array)
+#5 C:\wamp\www\greenice\vendor\yiisoft\yii2\base\Controller.php(151): yii\base\InlineAction->runWithParams(Array)
+#6 C:\wamp\www\greenice\vendor\yiisoft\yii2\base\Module.php(455): yii\base\Controller->runAction('login', Array)
+#7 C:\wamp\www\greenice\vendor\yiisoft\yii2\web\Application.php(84): yii\base\Module->runAction('site/login', Array)
+#8 C:\wamp\www\greenice\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 C:\wamp\www\greenice\backend\web\index.php(18): yii\base\Application->run()
+#10 {main}
+2016-03-27 01:39:03 [127.0.0.1][-][8tlsuahcsg5a91l1cme54nj320][info][application] $_GET = [
+    'r' => 'site/login'
+]
+
+$_COOKIE = [
+    '_csrf' => 'f7b26f727de687463f1c237d6680c21c549765156f3a83481356c1b364618cc8a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"TsgP9a8_jPwvXriTbVe9WC_2FBywlmfo\";}'
+    'PHPSESSID' => '8tlsuahcsg5a91l1cme54nj320'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => '/greenice/backend/web/index.php?r=user'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'localhost'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Chrome/10.0.648.6 Safari/534.16'
+    'HTTP_ACCEPT' => 'application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5'
+    'HTTP_ACCEPT_ENCODING' => 'gzip,deflate,sdch'
+    'HTTP_ACCEPT_LANGUAGE' => 'fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4'
+    'HTTP_ACCEPT_CHARSET' => 'ISO-8859-1,utf-8;q=0.7,*;q=0.3'
+    'HTTP_COOKIE' => '_csrf=f7b26f727de687463f1c237d6680c21c549765156f3a83481356c1b364618cc8a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22TsgP9a8_jPwvXriTbVe9WC_2FBywlmfo%22%3B%7D; PHPSESSID=8tlsuahcsg5a91l1cme54nj320'
+    'PATH' => 'J:\\oracle\\product\\10.2.0\\db_1\\bin;C:\\Program Files\\NVIDIA Corporation\\PhysX\\Common;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\TortoiseSVN\\bin;E:\\programs\\OpenVPN\\bin;C:\\Program Files\\Skype\\Phone\\;C:\\Program Files\\7-Zip;C:\\ProgramData\\chocolatey\\bin;C:\\Program Files\\nodejs\\;C:\\wamp\\bin\\php\\php5.5.12;C:\\Program Files\\Common Files\\lenovo\\easyplussdk\\bin;C:\\Program Files\\GnuWin32\\bin;C:\\Program Files\\CodeBlocks\\MinGW\\bin;C:\\Program Files\\MiKTeX 2.9\\miktex\\bin\\;C:\\Program Files\\Oracle\\bin;C:\\wamp;'
+    'SystemRoot' => 'C:\\Windows'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.9 (Win32) PHP/5.5.12 Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.9 (Win32) PHP/5.5.12'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/wamp/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/wamp/www/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'C:/wamp/www/greenice/backend/web/index.php'
+    'REMOTE_PORT' => '54086'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=site%2Flogin'
+    'REQUEST_URI' => '/greenice/backend/web/index.php?r=site%2Flogin'
+    'SCRIPT_NAME' => '/greenice/backend/web/index.php'
+    'PHP_SELF' => '/greenice/backend/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1459039143.932
+    'REQUEST_TIME' => 1459039143
+]
+2016-03-27 01:39:04 [127.0.0.1][-][8tlsuahcsg5a91l1cme54nj320][warning][yii\log\Dispatcher::dispatch] Unable to send log via yii\debug\LogTarget: Exception 'Exception' with message 'Serialization of 'Closure' is not allowed' 
+
+in C:\wamp\www\greenice\vendor\yiisoft\yii2-debug\LogTarget.php:58
+
+Stack trace:
+#0 C:\wamp\www\greenice\vendor\yiisoft\yii2-debug\LogTarget.php(58): serialize(Array)
+#1 C:\wamp\www\greenice\vendor\yiisoft\yii2-debug\LogTarget.php(112): yii\debug\LogTarget->export(Array)
+#2 C:\wamp\www\greenice\vendor\yiisoft\yii2\log\Dispatcher.php(183): yii\debug\LogTarget->collect(Array, true)
+#3 C:\wamp\www\greenice\vendor\yiisoft\yii2\log\Logger.php(173): yii\log\Dispatcher->dispatch(Array, true)
+#4 C:\wamp\www\greenice\vendor\yiisoft\yii2\base\ErrorHandler.php(111): yii\log\Logger->flush(true)
+#5 [internal function]: yii\base\ErrorHandler->handleException(Object(yii\base\InvalidParamException))
+#6 {main}
+2016-03-27 01:39:03 [127.0.0.1][-][8tlsuahcsg5a91l1cme54nj320][info][application] $_GET = [
+    'r' => 'site/login'
+]
+
+$_COOKIE = [
+    '_csrf' => 'f7b26f727de687463f1c237d6680c21c549765156f3a83481356c1b364618cc8a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"TsgP9a8_jPwvXriTbVe9WC_2FBywlmfo\";}'
+    'PHPSESSID' => '8tlsuahcsg5a91l1cme54nj320'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => '/greenice/backend/web/index.php?r=user'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'localhost'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Chrome/10.0.648.6 Safari/534.16'
+    'HTTP_ACCEPT' => 'application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5'
+    'HTTP_ACCEPT_ENCODING' => 'gzip,deflate,sdch'
+    'HTTP_ACCEPT_LANGUAGE' => 'fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4'
+    'HTTP_ACCEPT_CHARSET' => 'ISO-8859-1,utf-8;q=0.7,*;q=0.3'
+    'HTTP_COOKIE' => '_csrf=f7b26f727de687463f1c237d6680c21c549765156f3a83481356c1b364618cc8a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22TsgP9a8_jPwvXriTbVe9WC_2FBywlmfo%22%3B%7D; PHPSESSID=8tlsuahcsg5a91l1cme54nj320'
+    'PATH' => 'J:\\oracle\\product\\10.2.0\\db_1\\bin;C:\\Program Files\\NVIDIA Corporation\\PhysX\\Common;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\TortoiseSVN\\bin;E:\\programs\\OpenVPN\\bin;C:\\Program Files\\Skype\\Phone\\;C:\\Program Files\\7-Zip;C:\\ProgramData\\chocolatey\\bin;C:\\Program Files\\nodejs\\;C:\\wamp\\bin\\php\\php5.5.12;C:\\Program Files\\Common Files\\lenovo\\easyplussdk\\bin;C:\\Program Files\\GnuWin32\\bin;C:\\Program Files\\CodeBlocks\\MinGW\\bin;C:\\Program Files\\MiKTeX 2.9\\miktex\\bin\\;C:\\Program Files\\Oracle\\bin;C:\\wamp;'
+    'SystemRoot' => 'C:\\Windows'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.9 (Win32) PHP/5.5.12 Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.9 (Win32) PHP/5.5.12'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/wamp/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/wamp/www/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'C:/wamp/www/greenice/backend/web/index.php'
+    'REMOTE_PORT' => '54086'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=site%2Flogin'
+    'REQUEST_URI' => '/greenice/backend/web/index.php?r=site%2Flogin'
+    'SCRIPT_NAME' => '/greenice/backend/web/index.php'
+    'PHP_SELF' => '/greenice/backend/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1459039143.932
+    'REQUEST_TIME' => 1459039143
+]
+2016-03-27 01:51:34 [127.0.0.1][-][-][error][yii\web\HttpException:404] exception 'yii\base\InvalidRouteException' with message 'Unable to resolve the request "2Flogin".' in C:\wamp\www\greenice\vendor\yiisoft\yii2\base\Module.php:461
+Stack trace:
+#0 C:\wamp\www\greenice\vendor\yiisoft\yii2\web\Application.php(84): yii\base\Module->runAction('2Flogin', Array)
+#1 C:\wamp\www\greenice\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 C:\wamp\www\greenice\backend\web\index.php(18): yii\base\Application->run()
+#3 {main}
+
+Next exception 'yii\web\NotFoundHttpException' with message 'Page not found.' in C:\wamp\www\greenice\vendor\yiisoft\yii2\web\Application.php:96
+Stack trace:
+#0 C:\wamp\www\greenice\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 C:\wamp\www\greenice\backend\web\index.php(18): yii\base\Application->run()
+#2 {main}
+2016-03-27 01:51:34 [127.0.0.1][-][-][info][application] $_GET = [
+    'r' => '2Flogin'
+]
+
+$_COOKIE = [
+    '_csrf' => 'f7b26f727de687463f1c237d6680c21c549765156f3a83481356c1b364618cc8a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"TsgP9a8_jPwvXriTbVe9WC_2FBywlmfo\";}'
+    'PHPSESSID' => '8tlsuahcsg5a91l1cme54nj320'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'localhost'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Chrome/10.0.648.6 Safari/534.16'
+    'HTTP_ACCEPT' => 'application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5'
+    'HTTP_ACCEPT_ENCODING' => 'gzip,deflate,sdch'
+    'HTTP_ACCEPT_LANGUAGE' => 'fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4'
+    'HTTP_ACCEPT_CHARSET' => 'ISO-8859-1,utf-8;q=0.7,*;q=0.3'
+    'HTTP_COOKIE' => '_csrf=f7b26f727de687463f1c237d6680c21c549765156f3a83481356c1b364618cc8a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22TsgP9a8_jPwvXriTbVe9WC_2FBywlmfo%22%3B%7D; PHPSESSID=8tlsuahcsg5a91l1cme54nj320'
+    'PATH' => 'J:\\oracle\\product\\10.2.0\\db_1\\bin;C:\\Program Files\\NVIDIA Corporation\\PhysX\\Common;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\TortoiseSVN\\bin;E:\\programs\\OpenVPN\\bin;C:\\Program Files\\Skype\\Phone\\;C:\\Program Files\\7-Zip;C:\\ProgramData\\chocolatey\\bin;C:\\Program Files\\nodejs\\;C:\\wamp\\bin\\php\\php5.5.12;C:\\Program Files\\Common Files\\lenovo\\easyplussdk\\bin;C:\\Program Files\\GnuWin32\\bin;C:\\Program Files\\CodeBlocks\\MinGW\\bin;C:\\Program Files\\MiKTeX 2.9\\miktex\\bin\\;C:\\Program Files\\Oracle\\bin;C:\\wamp;'
+    'SystemRoot' => 'C:\\Windows'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.9 (Win32) PHP/5.5.12 Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.9 (Win32) PHP/5.5.12'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/wamp/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/wamp/www/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'C:/wamp/www/greenice/backend/web/index.php'
+    'REMOTE_PORT' => '54197'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r=2Flogin'
+    'REQUEST_URI' => '/greenice/backend/web/index.php?r=2Flogin'
+    'SCRIPT_NAME' => '/greenice/backend/web/index.php'
+    'PHP_SELF' => '/greenice/backend/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1459039894.574
+    'REQUEST_TIME' => 1459039894
+]
+2016-03-27 01:51:52 [127.0.0.1][-][-][error][yii\web\HttpException:404] exception 'yii\base\InvalidRouteException' with message 'Unable to resolve the request "".' in C:\wamp\www\greenice\vendor\yiisoft\yii2\base\Module.php:461
+Stack trace:
+#0 C:\wamp\www\greenice\vendor\yiisoft\yii2\web\Application.php(84): yii\base\Module->runAction('', Array)
+#1 C:\wamp\www\greenice\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 C:\wamp\www\greenice\backend\web\index.php(18): yii\base\Application->run()
+#3 {main}
+
+Next exception 'yii\web\NotFoundHttpException' with message 'Page not found.' in C:\wamp\www\greenice\vendor\yiisoft\yii2\web\Application.php:96
+Stack trace:
+#0 C:\wamp\www\greenice\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 C:\wamp\www\greenice\backend\web\index.php(18): yii\base\Application->run()
+#2 {main}
+2016-03-27 01:51:52 [127.0.0.1][-][-][info][application] $_GET = [
+    'r' => ''
+]
+
+$_COOKIE = [
+    '_csrf' => 'f7b26f727de687463f1c237d6680c21c549765156f3a83481356c1b364618cc8a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"TsgP9a8_jPwvXriTbVe9WC_2FBywlmfo\";}'
+    'PHPSESSID' => '8tlsuahcsg5a91l1cme54nj320'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'localhost'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Chrome/10.0.648.6 Safari/534.16'
+    'HTTP_ACCEPT' => 'application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5'
+    'HTTP_ACCEPT_ENCODING' => 'gzip,deflate,sdch'
+    'HTTP_ACCEPT_LANGUAGE' => 'fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4'
+    'HTTP_ACCEPT_CHARSET' => 'ISO-8859-1,utf-8;q=0.7,*;q=0.3'
+    'HTTP_COOKIE' => '_csrf=f7b26f727de687463f1c237d6680c21c549765156f3a83481356c1b364618cc8a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22TsgP9a8_jPwvXriTbVe9WC_2FBywlmfo%22%3B%7D; PHPSESSID=8tlsuahcsg5a91l1cme54nj320'
+    'PATH' => 'J:\\oracle\\product\\10.2.0\\db_1\\bin;C:\\Program Files\\NVIDIA Corporation\\PhysX\\Common;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\TortoiseSVN\\bin;E:\\programs\\OpenVPN\\bin;C:\\Program Files\\Skype\\Phone\\;C:\\Program Files\\7-Zip;C:\\ProgramData\\chocolatey\\bin;C:\\Program Files\\nodejs\\;C:\\wamp\\bin\\php\\php5.5.12;C:\\Program Files\\Common Files\\lenovo\\easyplussdk\\bin;C:\\Program Files\\GnuWin32\\bin;C:\\Program Files\\CodeBlocks\\MinGW\\bin;C:\\Program Files\\MiKTeX 2.9\\miktex\\bin\\;C:\\Program Files\\Oracle\\bin;C:\\wamp;'
+    'SystemRoot' => 'C:\\Windows'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.9 (Win32) PHP/5.5.12 Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.9 (Win32) PHP/5.5.12'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/wamp/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/wamp/www/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'C:/wamp/www/greenice/backend/web/index.php'
+    'REMOTE_PORT' => '54198'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => 'r='
+    'REQUEST_URI' => '/greenice/backend/web/index.php?r='
+    'SCRIPT_NAME' => '/greenice/backend/web/index.php'
+    'PHP_SELF' => '/greenice/backend/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1459039912.509
+    'REQUEST_TIME' => 1459039912
+]
+2016-03-27 01:52:05 [127.0.0.1][-][-][error][yii\web\HttpException:404] exception 'yii\base\InvalidRouteException' with message 'Unable to resolve the request "".' in C:\wamp\www\greenice\vendor\yiisoft\yii2\base\Module.php:461
+Stack trace:
+#0 C:\wamp\www\greenice\vendor\yiisoft\yii2\web\Application.php(84): yii\base\Module->runAction('', Array)
+#1 C:\wamp\www\greenice\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 C:\wamp\www\greenice\backend\web\index.php(18): yii\base\Application->run()
+#3 {main}
+
+Next exception 'yii\web\NotFoundHttpException' with message 'Page not found.' in C:\wamp\www\greenice\vendor\yiisoft\yii2\web\Application.php:96
+Stack trace:
+#0 C:\wamp\www\greenice\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 C:\wamp\www\greenice\backend\web\index.php(18): yii\base\Application->run()
+#2 {main}
+2016-03-27 01:52:05 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    '_csrf' => 'f7b26f727de687463f1c237d6680c21c549765156f3a83481356c1b364618cc8a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"TsgP9a8_jPwvXriTbVe9WC_2FBywlmfo\";}'
+    'PHPSESSID' => '8tlsuahcsg5a91l1cme54nj320'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'localhost'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Chrome/10.0.648.6 Safari/534.16'
+    'HTTP_ACCEPT' => 'application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5'
+    'HTTP_ACCEPT_ENCODING' => 'gzip,deflate,sdch'
+    'HTTP_ACCEPT_LANGUAGE' => 'fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4'
+    'HTTP_ACCEPT_CHARSET' => 'ISO-8859-1,utf-8;q=0.7,*;q=0.3'
+    'HTTP_COOKIE' => '_csrf=f7b26f727de687463f1c237d6680c21c549765156f3a83481356c1b364618cc8a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22TsgP9a8_jPwvXriTbVe9WC_2FBywlmfo%22%3B%7D; PHPSESSID=8tlsuahcsg5a91l1cme54nj320'
+    'PATH' => 'J:\\oracle\\product\\10.2.0\\db_1\\bin;C:\\Program Files\\NVIDIA Corporation\\PhysX\\Common;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\TortoiseSVN\\bin;E:\\programs\\OpenVPN\\bin;C:\\Program Files\\Skype\\Phone\\;C:\\Program Files\\7-Zip;C:\\ProgramData\\chocolatey\\bin;C:\\Program Files\\nodejs\\;C:\\wamp\\bin\\php\\php5.5.12;C:\\Program Files\\Common Files\\lenovo\\easyplussdk\\bin;C:\\Program Files\\GnuWin32\\bin;C:\\Program Files\\CodeBlocks\\MinGW\\bin;C:\\Program Files\\MiKTeX 2.9\\miktex\\bin\\;C:\\Program Files\\Oracle\\bin;C:\\wamp;'
+    'SystemRoot' => 'C:\\Windows'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.9 (Win32) PHP/5.5.12 Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.9 (Win32) PHP/5.5.12'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/wamp/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/wamp/www/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'C:/wamp/www/greenice/backend/web/index.php'
+    'REMOTE_PORT' => '54203'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/greenice/backend/web/index.php'
+    'SCRIPT_NAME' => '/greenice/backend/web/index.php'
+    'PHP_SELF' => '/greenice/backend/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1459039925.096
+    'REQUEST_TIME' => 1459039925
+]

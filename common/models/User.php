@@ -20,6 +20,14 @@ use yii\web\IdentityInterface;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
+ * @property string $ville 
+ * @property string $sexe
+ * @property string $nom
+ * @property string $prenom
+ * @property string $date_naiss
+ * @property string $date_insc
+ * @property string $last_active_time
+ * @property string $role 
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -40,26 +48,36 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function behaviors()
     {
-        return [
-            TimestampBehavior::className(),
-        ];
+        
+           return [ TimestampBehavior::className()];
+       
     }
 
     /**
      * @inheritdoc
      */
     public function rules()
+
     {
+
+        $date_actuel=date("y-m-d H:i:s");
         return [
-            [['id_domaine', 'id_sous_dom', 'username', 'sexe', 'role', 'date_insc', 'email', 'status'],'required' ],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Cet email existe déjà.'],
+         
+            [['username', 'sexe', 'email'],'required','skipOnError'=>false,'skipOnEmpty'=>false ],
+            [['id_domaine', 'id_sous_dom', 'statut_social'],'required', 'when'=>function($model){  return $model->role=='member';} ],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Cet email existe déjà.','skipOnError'=>false,'skipOnEmpty'=>false],
             ['sexe','in', 'range'=>['H', 'F']],
             ['role','in', 'range'=>['admin', 'member']],
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED, self::STATUS_ONLINE]]
+            ['statut_social','in', 'range'=>['etudiant', 'travailleur']],
+            ['role', 'default','value'=>'member'],
+			['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED, self::STATUS_ONLINE]],
+           // ['date_insc', 'date'],
+            ['date_insc', 'default','value'=>$date_actuel]
+          
         ];
     }
-
+   
     /**
      * @inheritdoc
      */
@@ -121,7 +139,6 @@ class User extends ActiveRecord implements IdentityInterface
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
         return $timestamp + $expire >= time();
     }
-
     /**
      * @inheritdoc
      */
@@ -190,4 +207,6 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+    
+   
 }

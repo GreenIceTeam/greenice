@@ -24,9 +24,6 @@ return [
 		'stats' => [
             'class' => 'backend\modules\stats\Stats',
         ],
-		'critique' => [
-            'class' => 'frontend\modules\critique\Critique',
-        ],
     ],
     'components' => [
         'user' => [
@@ -43,7 +40,7 @@ return [
             ],
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'admin/admin/error',
         ],
     ],
     'params' => $params,

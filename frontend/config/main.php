@@ -10,7 +10,7 @@ return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'controllerNamespace' => 'frontend\controllers',
+    'controllerNamespace' => 'frontend\modules\member\controllers',
 	'modules' => [
         'member' => [
             'class' => 'frontend\modules\member\Member',
@@ -25,10 +25,10 @@ return [
             'class' => 'frontend\modules\communaute\Communaute',
         ],
 		'message' => [
-            'class' => 'frontend\modules\messages\Message',
+            'class' => 'frontend\modules\message\Message',
         ],
-		'cercle' => [
-            'class' => 'frontend\modules\cercle\Cercle',
+		'contact' => [
+            'class' => 'frontend\modules\contact\Contact',
         ],
 		  'discussion' => [
             'class' => 'frontend\modules\discussion\Discussion',
@@ -53,7 +53,7 @@ return [
             ],
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'member/member/error',
         ],
     ],
     'params' => $params,

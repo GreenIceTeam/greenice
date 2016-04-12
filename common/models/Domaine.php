@@ -29,7 +29,8 @@ class Domaine extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nom'], 'required'],
+            [['nom', 'type', 'valide'], 'required'],
+			['type', 'in', 'range'=>['etude', 'travail', 'mixte']],
             [['nom'], 'string', 'max' => 255],
             ['valide', 'in', 'range' =>['oui', 'non']]
         ];
