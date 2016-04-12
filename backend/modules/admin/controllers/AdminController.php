@@ -66,7 +66,6 @@ class AdminController extends Controller
         }
         
         $model = new LoginForm();
-
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $isAdmin = User::find()->select('id')->where(['role'=>'admin', 'username'=>$model->username]);
             if(!empty($isAdmin) && $model->login() ){
@@ -76,21 +75,17 @@ class AdminController extends Controller
             return $this->render('login', [
                 'model' => $model,
             ]);
-        }
+       }
     }
-    
-    /*
-     * cette fonction permet a un administrateur de se deconnecter
-     */
-    
+
 public function actionLogout()
     {
         Yii::$app->user->logout();
 
         return $this->goHome();
     }
-
-
+    
+    
    /**
     * adding action to create action whose will create an admin
     */
