@@ -10,6 +10,7 @@ class MemberController extends \yii\web\Controller
     {
         return $this->render('index');
     }
+   
     public function actionLogin()
     {
         if (!\Yii::$app->user->isGuest) {
