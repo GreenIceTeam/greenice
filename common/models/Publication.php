@@ -37,11 +37,13 @@ class Publication extends \yii\db\ActiveRecord
      */
     public function rules()
     {
+        $id = Yii::$app->user->identity->id;
         return [
+           // [['id_auteur'], 'required', 'message'=>'ce champ est obligatoire'],
             [['id_auteur'], 'integer'],
+            [['id_auteur'], 'default', 'value'=>  $id],
             [['contenu'], 'string'],
-            [['date_post'], 'safe'],
-            [['type'], 'string', 'max' => 30]
+            [['date_post'], 'safe']
         ];
     }
 

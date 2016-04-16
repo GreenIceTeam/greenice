@@ -36,6 +36,7 @@ class Fichier extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['id_user'], 'default', 'value'=>\Yii::$app->user->identity->id],
             [['id_user'], 'integer'],
             [['nom'], 'string', 'max' => 255],
             [['statut'], 'string', 'max' => 20],

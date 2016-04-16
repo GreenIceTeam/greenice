@@ -116,7 +116,8 @@ class m130524_201442_init extends Migration
             $this->createTable('{{%recevoir_publ}}', [
             'id_user' => $this->integer(11),
             'id_publ' => $this->integer(11),
-            'affiche' => $this->string(3)->check("affiche in ('oui', 'non')")
+            'affiche' => $this->string(3)->check("affiche in ('oui', 'non')"),
+            'nouveau' => $this->string(3)->notNull()->check("type in ('oui', 'non')")
           ],$tableOptions);
             $this->addPrimaryKey('pk1_recevoir_publ', 'recevoir_publ', ['id_user', 'id_publ']);
             $this->addForeignKey('fk1_recevoir_publ', 'recevoir_publ', 'id_user', 'user', 'id');
