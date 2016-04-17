@@ -40,11 +40,19 @@ AppAsset::register($this);
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/admin/admin/login']];
     } else {
-        $menuItems[] = [
+        
+        $menuItems [] = [
+                            'label' => 'Home', 
+                            'url' => ['/admin/admin/index']
+                  ];
+         $menuItems[] = [
             'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
             'url' => ['/admin/admin/logout'],
             'linkOptions' => ['data-method' => 'post']
-        ];
+            ];
+          
+            
+        
     }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],

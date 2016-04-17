@@ -25,7 +25,7 @@ class AdminController extends Controller
         }
         
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) ) {
+        if ($model->load(Yii::$app->request->post())&& $model->validate() ) {
             $isAdmin = User::find()->select('id')->where(['role'=>'admin', 'username'=>$model->username]);
             if(!empty($isAdmin) && $model->login() ){
                 return $this->render('index');
