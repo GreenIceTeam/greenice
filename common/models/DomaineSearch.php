@@ -19,7 +19,7 @@ class DomaineSearch extends Domaine
     {
         return [
             [['id_domaine'], 'integer'],
-            [['nom', 'valide'], 'safe'],
+            [['nom', 'type', 'valide'], 'safe'],
         ];
     }
 
@@ -60,6 +60,7 @@ class DomaineSearch extends Domaine
         ]);
 
         $query->andFilterWhere(['like', 'nom', $this->nom])
+            ->andFilterWhere(['like', 'type', $this->type])
             ->andFilterWhere(['like', 'valide', $this->valide]);
 
         return $dataProvider;

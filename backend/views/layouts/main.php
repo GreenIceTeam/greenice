@@ -28,15 +28,15 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'GreenIce Admin',
-        'brandUrl' => 'index.php?r=admin/admin/login',
+        'brandLabel' => 'GreenIce Admin space',
+        'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-   // $menuItems = [
-      //  ['label' => 'Home', 'url' => ['/admin/admin/index']],
-   // ];
+    $menuItems = [
+        ['label' => 'Home', 'url' => ['/admin/admin/index']],
+    ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/admin/admin/login']];
     } else {
@@ -72,7 +72,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="pull-left">&copy; Greenice <?= date('Y') ?></p>
 
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>

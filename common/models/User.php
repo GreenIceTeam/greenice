@@ -70,7 +70,7 @@ class User extends ActiveRecord implements IdentityInterface
             ['role','in', 'range'=>['admin', 'member']],
             ['statut_social','in', 'range'=>['etudiant', 'travailleur']],
             ['role', 'default','value'=>'member'],
-           ['status', 'default', 'value' => self::STATUS_ACTIVE],
+			['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED, self::STATUS_ONLINE]],
            // ['date_insc', 'date'],
             ['date_insc', 'default','value'=>$date_actuel]

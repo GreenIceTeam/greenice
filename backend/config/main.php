@@ -40,7 +40,7 @@ return [
             ],
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'admin/admin/error',
         ],
     ],
     'params' => $params,

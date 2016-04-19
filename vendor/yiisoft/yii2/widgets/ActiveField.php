@@ -249,7 +249,7 @@ class ActiveField extends Component
      * using [[Html::encode()]]. If a value is null, the corresponding attribute will not be rendered.
      * @return $this the field object itself
      */
-    public function label($label = null, $options = [])
+    public function     label($label = null, $options = [])
     {
         if ($label === false) {
             $this->parts['{label}'] = '';

@@ -33,8 +33,10 @@ class RecevoirMess extends \yii\db\ActiveRecord
         return [
             [['id_dest', 'id_mess'], 'required'],
             [['id_dest', 'id_mess'], 'integer'],
-            [['affiche', 'lu'], 'string', 'max' => 3],
-            [['affiche', 'lu'], 'in', 'range' => ['oui', 'non']]
+            [['affiche', 'lu', 'nouveau'], 'string', 'max' => 3],
+            [['affiche', 'lu', 'nouveau'], 'in', 'range' => ['oui', 'non']],
+            [['affiche', 'lu'], 'default' => 'non'],
+            [['nouveau'], 'default' => 'oui']
         ];
     }
 
