@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\models;
+namespace  frontend\modules\profile\models;
 
 
 use yii\base\Model;
@@ -16,12 +16,14 @@ class ProfileForm extends Model
     public $email;
    // public $password;
    // public $password_repeat;
-    //public $domaine;
-    //public $sousDomaine;
+    public $domaineEtude;
+    public $sousDomaine;
+    public $domaineActivite;
     public $nom;
     public $prenom;
+    public $statutSocial;
     public $sexe;
-    public $dateNaiss;
+    public $date_naiss;
     public $ville;
     
 
@@ -33,12 +35,12 @@ class ProfileForm extends Model
         return [
            
            ['photo', 'required'],
-            ['photo', 'file', 'extensions' => 'jpg,jpeg,png'],
+           ['photo', 'file', 'extensions' => 'jpg,jpeg,png'],
 
             ['username', 'filter', 'filter' => 'trim'],
-            ['username', 'required'],
-            ['photo', 'required'],
-            ['email', 'required'],
+            //['username', 'required'],
+            //['photo', 'required'],
+           // ['email', 'required'],
             ['email', 'unique'],
             ['email', 'email'],
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Ce nom existe deja'],
@@ -47,7 +49,7 @@ class ProfileForm extends Model
             
             ['ville', 'string','max'=>20,'tooLong'=>'nom de ville trop long'],
             
-            ['sexe','in', 'range'=>['H', 'F']],
+           //['sexe','in', 'range'=>['H', 'F']],
         ];
     }
 }

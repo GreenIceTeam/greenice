@@ -13,9 +13,9 @@ $this->title = 'View profile';
 ?>
 <div class="user-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($this->title) ?></h1> 
 
-   
+    <?='<img src='.$photo ?> />
 
     <?= DetailView::widget([
         'model' => $model,
