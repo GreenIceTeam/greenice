@@ -42,6 +42,8 @@ class PostForm extends Model
          
         /**  insert the new post in table 'publication' **/
         //$publ->idAuteur = Yii::$app->user->identity->id;
+         
+         $publ->id_comm = $this->idComm;
         $publ->contenu = $this->content;
         $publ->date_post = date("y-m-d H:i:s");
         $isValidComm = (!empty(Communaute::find()->where(['id_comm'=>$this->idComm])->scalar()) ) ;
@@ -52,15 +54,16 @@ class PostForm extends Model
                     //  Insert file data in the database
                     $idFile = (Fichier::find()->select(['max(id_fichier)'])->scalar())+1;
                     $file = new Fichier();
-                    $file->nom = 'publ_'.date("YmdHis").'_'.$idFile;
+                    $file->nom = 'publ_'.date("YmdHis").'_'.$idFile.'.'.$this->file->extension;
                     $file->statut = 'publication';
                     $file->save();
                     // insert in table fichier_assoc_publ
                     $publFile = new FichierAssocPubl();
                     $publFile->id_publ = Publication::find()->select(['max(id_publ)'])->scalar();
                     $publFile->id_fichier = $idFile;
+                    $publFile->save();
                     // save the file in frontend/web/uploads 
-                    $this->file->saveAs('uploads/'.$file->nom.'.'.$this->file->extension);
+                    $this->file->saveAs('uploads/'.$file->nom);
                 }
                 
                 // That is y=the current publication id
@@ -73,7 +76,7 @@ class PostForm extends Model
                     $recPubl->id_publ = $idPubl;
                     $recPubl->id_user = $member->id_user;
                     $recPubl->nouveau = 'oui';
-                    if (!$recPubl->save()){
+                    if (!$recPubl->save()){ 
                         return Null;
                     }
                 }

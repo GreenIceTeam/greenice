@@ -108,10 +108,12 @@ class m130524_201442_init extends Migration
            $this->createTable('{{%publication}}', [
             'id_publ' => $this->primaryKey(),
             'id_auteur' => $this->integer(11),
+             'id_comm'=>$this->integer(11),
             'contenu' => $this->text(),
              'date_post'=> $this->dateTime()
           ],$tableOptions);
             $this->addForeignKey('fk1_publication', 'publication', 'id_auteur', 'user', 'id');
+            $this->addForeignKey('fk2_publication', 'publication', 'id_comm', 'communaute', 'id_comm');
             
             $this->createTable('{{%recevoir_publ}}', [
             'id_user' => $this->integer(11),

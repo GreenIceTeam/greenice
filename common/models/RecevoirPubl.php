@@ -33,7 +33,9 @@ class RecevoirPubl extends \yii\db\ActiveRecord
             [['id_user', 'id_publ'], 'required'],
             [['id_user', 'id_publ'], 'integer'],
             [['affiche'], 'string', 'max' => 3],
-            ['affiche', 'in', 'range'=>['oui', 'non']]
+            [['affiche'], 'default', 'value' => 'non'],
+            [['nouveau'], 'default', 'value' => 'oui'],
+            [['affiche', 'nouveau'], 'in', 'range'=>['oui', 'non']]
         ];
     }
 
