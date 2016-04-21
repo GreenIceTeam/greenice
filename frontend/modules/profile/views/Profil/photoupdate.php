@@ -7,13 +7,13 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'modifier_profil';
+$this->title = 'Update Photo';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-signup">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to signup:</p>
+    <p>Veuillez remplir le champ suivant:</p>
 
 
 
@@ -26,7 +26,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="form-group">
                     <?= Html::submitButton('change', ['class' => 'btn btn-success', 'name' => 'signup-button']) ?>
                 </div>
-
+ <p> 
+   <a class="btn btn-success" href="/greenice/frontend/web/index.php?r=profile/profil/view-profile">Annuler</a>
+    </p>
             <?php ActiveForm::end(); ?>
         </div>
     </div>

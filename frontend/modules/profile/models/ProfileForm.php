@@ -34,16 +34,16 @@ class ProfileForm extends Model
     {
         return [
            
-           ['photo', 'required'],
-           ['photo', 'file', 'extensions' => 'jpg,jpeg,png'],
+          ['photo', 'required','message'=>'votre photo doit être renseigné '],
+           ['photo', 'file', 'extensions' => 'jpg,jpeg,png','message' => 'les extensions requises sont jpg jpeg,png'],
 
             ['username', 'filter', 'filter' => 'trim'],
-            //['username', 'required'],
-            //['photo', 'required'],
-           // ['email', 'required'],
-            ['email', 'unique'],
+            ['username', 'required'],
+            ['photo', 'required'],
+            ['email', 'required'],
+           // ['email', 'unique'],
             ['email', 'email'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Ce nom existe deja'],
+            //['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Ce nom existe deja'],
             ['username', 'string', 'min' => 2, 'max' => 255,'tooShort'=>'il doit être au moins de 2 caractères '],
             [['nom','prenom'], 'string','min'=>3,'max'=>20],
             
@@ -52,4 +52,5 @@ class ProfileForm extends Model
            //['sexe','in', 'range'=>['H', 'F']],
         ];
     }
+   // public static function find(){}
 }

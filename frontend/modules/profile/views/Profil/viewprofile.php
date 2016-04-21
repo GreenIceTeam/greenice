@@ -13,10 +13,13 @@ $this->title = 'View profile';
 ?>
 <div class="user-view">
 
-    <h1><?= Html::encode($this->title) ?></h1> 
-
-    <?='<img src='.$photo ?> />
-
+    <h1><?= Html::encode($this->title) ?></h1>
+    
+    <div class="col-lg-offset-5">
+    <?='<img  style="width:35%;height:15em"  src=uploads/'.$photo ?> />
+     Modifiez uniquement la photo de profil <a class="btn btn-success" href="/greenice/frontend/web/index.php?r=profile/profil/change">Ici</a>
+    </div> 
+    
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [

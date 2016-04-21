@@ -7,6 +7,7 @@ use common\models\User;
 use yii\web\UploadedFile;
 use common\models\Fichier;
 use frontend\modules\profile\models\ProfileForm;
+use frontend\modules\profile\models\PhotoForm;
 use yii\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -46,7 +47,8 @@ class ProfilController extends Controller
         return $this->render('index');
     }
     
-     public function actionUpdate($id)
+ 
+    public function actionUpdate($id)
     {    
         $model=new ProfileForm();
         $model->username= $this->findModel($id)->username;
@@ -55,59 +57,86 @@ class ProfilController extends Controller
         $model->prenom= $this->findModel($id)->prenom;
         $model->date_naiss= $this->findModel($id)->date_naiss;
         $model->ville= $this->findModel($id)->ville;
-        $model->sexe= $this->findModel($id)->sexe;
-        $model->statutSocial= $this->findModel($id)->statut_social;
-        //$model->photo= (Fichier::find()->select('nom')->where(['id_user'=>$id,'statut'=>'photo_profil']));
-        /*$model->sousDomaine= $this->findModel($id)->sousDomaine;
-        $model->domaineEtude= $this->findModel($id)->domaineEtude;
-        $model->domaine_Activite= $this->findModel($id)->domaineActivite;*/
-            
         
+/*
+ * don du nom de fichier au fichier qu'on ajoute
+ */
+        
+        $idFich= (Fichier::find()->select("max(id_fichier)")->scalar())+1;
+        $statut='photo_profil';
 
-
-       if ($model->load(Yii::$app->request->post()))  {
-            $id=Yii::$app->getUser()->getId();
-           $connection = \Yii::$app->db;
-           $connection->open();
-           $connection->createCommand()->update('user' , 
-            [  'username' =>$model->username,
-               'email'=>$model->email,
-               'nom'=>$model->nom,
-               'prenom'=>$model->prenom,
-               'date_naiss'=>$model->date_naiss,
-               'ville'=>$model->ville,
-               'sexe'=>$model->sexe,
-               'statut_social'=>$model->statutSocial,
+        if ($model->load(Yii::$app->request->post()))  {
+    
+          $model->photo = UploadedFile::getInstance($model,'photo');
+    
+            if ($model->validate()){ 
                 
-            ],   
-                   "id=$id"     ) ->execute();
-           
-        return $this->actionChange();
+/*it's validate  and save the name file in uploads
+ * 
+ */        
+                    $nomFich='Photoprofil_'.date("YmdHis").'_'.$idFich.'.'.$model->photo->extension;
+                    $model->photo->saveAs('uploads/'.$nomFich);
+             
+                    $id=Yii::$app->getUser()->getId();
+                    $connection = \Yii::$app->db;
+                    $connection->open();
+/*
+ * update dans la table  user;fichier et l'insertion d'un nouveau fichier de photo_profil
+ */
+                    $connection->createCommand()->update('user' , ['username' =>$model->username,'email'=>$model->email, 'nom'=>$model->nom,
+                        'prenom'=>$model->prenom,
+                        'ville'=>$model->ville,
+                        'date_naiss'=>$model->date_naiss,
+                        'ville'=>$model->ville,],"id=$id")
+                                                ->execute();
 
+                    $connection->createCommand()->update('fichier' , [  
+                                             'statut'=>'ancien_profil'],
 
-            //return $this->redirect(['view-profile']);
-            
-        } else {
+                            ['id_user'=>$id,'statut'=>$statut] )->execute();
+
+                    $connection->createCommand()->insert('fichier' , [
+                                             'id_user' =>$id,
+                                             'nom'=>$nomFich,
+                                             'statut'=>$statut])
+                            ->execute();
+    
+                return $this->redirect(['view-profile']);
+            }
+        } 
+    
+        else {
             return $this->render('updateprofile', [
                 'model' => $model,
             ]);
         }
     }
-   
-   
       public function actionChange()
     {
-        $model = new ProfileForm();
+        $model = new PhotoForm();
+        
+/*don du nom de fichier
+ * 
+ */
         $idFich= (Fichier::find()->select("max(id_fichier)")->scalar())+1;
         $id=Yii::$app->getUser()->getId();
        if ($model->load(Yii::$app->request->post())) {
+           
         $model->photo = UploadedFile::getInstance($model,'photo');
         $statut='photo_profil';
         
          if ($model->validate())
             { 
-             $nomFich='Photoprofil_'.date("YmdHis").'_'.$idFich.'.'.$model->photo->extension;
+/*don du nom au fichier image telecharge et save son nom dans uploads
+ * 
+ */
+            $nomFich='Photoprofil_'.date("YmdHis").'_'.$idFich.'.'.$model->photo->extension;
             $model->photo->saveAs('uploads/'.$nomFich);
+            
+/*creation et ouverture d'une connexion puis modification des valeurs de notre table fichier 
+ *un update et ensuite un insert de nouveau de fichier.
+ * 
+ */
             $connection1 = \Yii::$app->db;
             $connection1->open();
             $connection1->createCommand()->update('fichier' , [
@@ -120,7 +149,6 @@ class ProfilController extends Controller
                                     'nom'=>$nomFich,
                                     'statut'=>$statut])
                    ->execute();
-             $photo='uploads/'.(Fichier::find()->select('nom')->where(['id_user'=>$id,'statut'=>'photo_profil'])->scalar());
              
             return $this->redirect(['view-profile']);
            }
@@ -129,10 +157,13 @@ class ProfilController extends Controller
                             'model' => $model,]);
     }
     
+    
+    
+    
       public function actionViewProfile()
-    {   
+    {
           $id=Yii::$app->getUser()->getId();
-          $photo='uploads/'.(Fichier::find()->select('nom')->where(['id_user'=>$id,'statut'=>'photo_profil'])->scalar());
+          $photo=(Fichier::find()->select('nom')->where(['id_user'=>$id,'statut'=>'photo_profil'])->scalar());
           
         return $this->render('viewprofile', [
             'model' => $this->findModel(),
