@@ -50,7 +50,7 @@ class ProfilController extends Controller
     }
     
  
-    public function actionUpdate($id)
+    public function actionUpdate()
     {    
             $model=new ProfileForm();
             $model->username= $this->findModel()->username;
@@ -120,7 +120,7 @@ class ProfilController extends Controller
                                  ],"id=$id")
                                                 ->execute();
     
-                        return $this->redirect(['view-profile']);
+                        return $this->redirect(['view']);
                 }
             } 
         
@@ -134,7 +134,7 @@ class ProfilController extends Controller
         }
     
     }
-      public function actionChange()
+      public function actionUpdatePicture()
     {
         $model = new PhotoForm();
         
@@ -173,7 +173,7 @@ class ProfilController extends Controller
                                     'statut'=>$statut])
                    ->execute();
              
-            return $this->redirect(['view-profile']);
+            return $this->redirect(['view']);
            }
        }
        return $this->render('photoupdate', [
@@ -183,7 +183,7 @@ class ProfilController extends Controller
     
     
     
-      public function actionViewProfile()
+      public function actionView()
     {
                 $id=Yii::$app->getUser()->getId();
                 $model=new ProfileForm();
@@ -205,6 +205,9 @@ class ProfilController extends Controller
             ]);
     }
     
+    /*fonction me permettant de recupérer les informations  dans la table User
+     * 
+     */
      protected function findModel()
     {
         if (($model = User::findOne(Yii::$app->getUser()->getId())) !== null) {

@@ -91,7 +91,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
                     <div class="form-group">
                         <?= Html::submitButton('Modifier', ['class' => 'btn btn-success' ]) ?>
-                        <a class="btn btn-success" href="/greenice/frontend/web/index.php?r=profile/profil/view-profile">Annuler</a>
+                        <a class="btn btn-success" href="/greenice/frontend/web/index.php?r=profile/profil/view">Annuler</a>
                     </div>
 
                 <?php ActiveForm::end(); ?>

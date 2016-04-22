@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <div class="col-lg-offset-0">
     <?='<img  style="width:35%;height:15em"  src=uploads/'.$photo ?> />
-     Modifiez uniquement la photo de profil <a class="btn btn-success" href="/greenice/frontend/web/index.php?r=profile/profil/change">Ici</a>
+     Modifiez uniquement la photo de profil <a class="btn btn-success" href="/greenice/frontend/web/index.php?r=profile/profil/update-picture">Ici</a>
     
     </div> 
     
@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
      <p>
-       <?= Html::a(Yii::t('app', 'Modifier'), ['update', 'id' =>Yii::$app->getUser()->getId()], ['class' => 'btn btn-primary']) ?>
+       <?= Html::a(Yii::t('app', 'Modifier'), ['update'], ['class' => 'btn btn-primary']) ?>
     </p>
 
 </div>
