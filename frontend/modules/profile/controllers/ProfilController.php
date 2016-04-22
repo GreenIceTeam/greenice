@@ -6,6 +6,8 @@ use Yii;
 use common\models\User;
 use yii\web\UploadedFile;
 use common\models\Fichier;
+use common\models\Domaine;
+use common\models\SousDomaine;
 use frontend\modules\profile\models\ProfileForm;
 use frontend\modules\profile\models\PhotoForm;
 use yii\web\Controller;
@@ -50,66 +52,87 @@ class ProfilController extends Controller
  
     public function actionUpdate($id)
     {    
-        $model=new ProfileForm();
-        $model->username= $this->findModel($id)->username;
-        $model->email= $this->findModel($id)->email;
-        $model->nom= $this->findModel($id)->nom;
-        $model->prenom= $this->findModel($id)->prenom;
-        $model->date_naiss= $this->findModel($id)->date_naiss;
-        $model->ville= $this->findModel($id)->ville;
-        
+            $model=new ProfileForm();
+            $model->username= $this->findModel()->username;
+            $model->email= $this->findModel()->email;
+            $model->nom= $this->findModel()->nom;
+            $model->prenom= $this->findModel()->prenom;
+            $model->date_naiss= $this->findModel()->date_naiss;
+            $model->ville= $this->findModel()->ville;
+            $model->statutSocial=$this->findModel()->statut_social;
+            $model->sousDomaine=$this->findModel()->id_sous_dom;
+
 /*
- * don du nom de fichier au fichier qu'on ajoute
+ * don du nom de fichier au fichier qu'on ajoute(modification du fichier chargé)
  */
         
-        $idFich= (Fichier::find()->select("max(id_fichier)")->scalar())+1;
-        $statut='photo_profil';
+            $idFich= (Fichier::find()->select("max(id_fichier)")->scalar())+1;
+            $statut='photo_profil';
 
-        if ($model->load(Yii::$app->request->post()))  {
+        if(Yii::$app->request->isPost)
+        {
+
+            if ($model->load(Yii::$app->request->post())) 
+            {
     
-          $model->photo = UploadedFile::getInstance($model,'photo');
+                    $model->photo = UploadedFile::getInstance($model,'photo');
     
-            if ($model->validate()){ 
+                if ($model->validate())
+                { 
                 
-/*it's validate  and save the name file in uploads
- * 
- */        
-                    $nomFich='Photoprofil_'.date("YmdHis").'_'.$idFich.'.'.$model->photo->extension;
-                    $model->photo->saveAs('uploads/'.$nomFich);
-             
-                    $id=Yii::$app->getUser()->getId();
-                    $connection = \Yii::$app->db;
-                    $connection->open();
 /*
- * update dans la table  user;fichier et l'insertion d'un nouveau fichier de photo_profil
+ * it's validate  and save the name file in uploads
+ */        
+                    if(!empty($model->photo)) 
+                    {      
+                            $nomFich='Photoprofil_'.date("YmdHis").'_'.$idFich.'.'.$model->photo->extension;
+                                $model->photo->saveAs('uploads/'.$nomFich);
+
+                                 $id=Yii::$app->getUser()->getId();
+                                $connection = \Yii::$app->db;
+                                $connection->open();
+
+                                 $connection->createCommand()->update('fichier' , [  
+                                                         'statut'=>'ancien_profil'],
+
+                                        ['id_user'=>$id,'statut'=>$statut] )->execute();
+
+                                $connection->createCommand()->insert('fichier' , [
+                                                         'id_user' =>$id,
+                                                         'nom'=>$nomFich,
+                                                         'statut'=>$statut])
+                                        ->execute();
+                    }
+                        $id=Yii::$app->getUser()->getId();
+                        $connection = \Yii::$app->db;
+                        $connection->open();
+    /*
+ * update dans la table  user;fichier et l'insertion d'une nouvelle photo de photo_profil
  */
                     $connection->createCommand()->update('user' , ['username' =>$model->username,'email'=>$model->email, 'nom'=>$model->nom,
                         'prenom'=>$model->prenom,
                         'ville'=>$model->ville,
                         'date_naiss'=>$model->date_naiss,
-                        'ville'=>$model->ville,],"id=$id")
+                        'ville'=>$model->ville,
+                        'statut_social'=>$model->statutSocial,
+                        'id_domaine'=> empty($model->domaineEtude)?$model->domaineActivite: $model->domaineEtude,
+	                'id_sous_dom'=> $model->sousDomaine,
+                                 ],"id=$id")
                                                 ->execute();
-
-                    $connection->createCommand()->update('fichier' , [  
-                                             'statut'=>'ancien_profil'],
-
-                            ['id_user'=>$id,'statut'=>$statut] )->execute();
-
-                    $connection->createCommand()->insert('fichier' , [
-                                             'id_user' =>$id,
-                                             'nom'=>$nomFich,
-                                             'statut'=>$statut])
-                            ->execute();
     
-                return $this->redirect(['view-profile']);
-            }
-        } 
+                        return $this->redirect(['view-profile']);
+                }
+            } 
+        
+        }
     
-        else {
+        else 
+            {
             return $this->render('updateprofile', [
                 'model' => $model,
             ]);
         }
+    
     }
       public function actionChange()
     {
@@ -162,11 +185,22 @@ class ProfilController extends Controller
     
       public function actionViewProfile()
     {
-          $id=Yii::$app->getUser()->getId();
-          $photo=(Fichier::find()->select('nom')->where(['id_user'=>$id,'statut'=>'photo_profil'])->scalar());
-          
+                $id=Yii::$app->getUser()->getId();
+                $model=new ProfileForm();
+                $model->username= $this->findModel()->username;
+                $model->email= $this->findModel()->email;
+                $model->nom= $this->findModel()->nom;
+                $model->prenom= $this->findModel()->prenom;
+                $model->date_naiss= $this->findModel()->date_naiss;
+                $model->date_insc= $this->findModel()->date_insc;
+                $model->ville= $this->findModel()->ville;
+                $model->statutSocial= $this->findModel()->statut_social;
+                $model->domaineEtude=Domaine::find()->select('nom')->where(['id_domaine'=>$this->findModel()->id_domaine])->scalar();
+                $model->sousDomaine=SousDomaine::find()->select('nom')->where(['id_sous_dom'=>$this->findModel()->id_sous_dom])->scalar();
+                $photo=(Fichier::find()->select('nom')->where(['id_user'=>$id,'statut'=>'photo_profil'])->scalar());
+
         return $this->render('viewprofile', [
-            'model' => $this->findModel(),
+            'model' => $model,
             'photo'=>$photo
             ]);
     }
