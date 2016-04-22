@@ -14,8 +14,6 @@ class ProfileForm extends Model
     public $photo;
     public $username;
     public $email;
-   // public $password;
-   // public $password_repeat;
     public $domaineEtude;
     public $sousDomaine;
     public $domaineActivite;
@@ -32,25 +30,28 @@ class ProfileForm extends Model
      */
     public function rules()
     {
-        return [
+        return 
+        [
            
-          ['photo', 'required','message'=>'votre photo doit être renseigné '],
-           ['photo', 'file', 'extensions' => 'jpg,jpeg,png','message' => 'les extensions requises sont jpg jpeg,png'],
-
+            ['photo', 'required','message'=>'votre photo doit être renseigné '],
+            
+            ['photo', 'file', 'extensions' => ['jpg','jpeg','png'],'wrongExtension'=>'les extensions autorisés sont jpg,jpeg,png'],
+        
             ['username', 'filter', 'filter' => 'trim'],
-            ['username', 'required'],
-            ['photo', 'required'],
-            ['email', 'required'],
-           // ['email', 'unique'],
-            ['email', 'email'],
-            //['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Ce nom existe deja'],
+            
+            ['username', 'required','message'=>'votre username doit être renseigné '],
+            
+            ['email', 'required','message'=>'votre email doit être renseigné '],
+                        
+            ['email', 'email','message'=>'votre email est incorrect '],
+            
             ['username', 'string', 'min' => 2, 'max' => 255,'tooShort'=>'il doit être au moins de 2 caractères '],
-            [['nom','prenom'], 'string','min'=>3,'max'=>20],
+            
+            [['nom','prenom'], 'string','min'=>3,'max'=>20,'tooShort'=>'il doit être au moins de 2 caractères ','tooLong'=>'remplir au plus 20 caractères'],
             
             ['ville', 'string','max'=>20,'tooLong'=>'nom de ville trop long'],
             
-           //['sexe','in', 'range'=>['H', 'F']],
         ];
     }
-   // public static function find(){}
+  
 }

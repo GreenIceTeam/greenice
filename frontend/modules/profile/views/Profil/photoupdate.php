@@ -24,11 +24,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($model, 'photo')->fileInput() ?>
 
                 <div class="form-group">
+                    
                     <?= Html::submitButton('change', ['class' => 'btn btn-success', 'name' => 'signup-button']) ?>
+                    
+                    <a class="btn btn-success" href="/greenice/frontend/web/index.php?r=profile/profil/view-profile">Annuler</a>
                 </div>
- <p> 
-   <a class="btn btn-success" href="/greenice/frontend/web/index.php?r=profile/profil/view-profile">Annuler</a>
-    </p>
+
             <?php ActiveForm::end(); ?>
         </div>
     </div>

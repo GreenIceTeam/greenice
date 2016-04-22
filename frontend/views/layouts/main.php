@@ -43,12 +43,13 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Inscription', 'url' => ['/member/member/signup']];
         $menuItems[] = ['label' => 'Connexion', 'url' => ['/member/member/login']];
     } else {
+        $menuItems[] = ['label' => 'Profil', 'url' => ['/profile/profil/view-profile']];
         $menuItems[] = [
             'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
             'url' => ['/member/member/logout'],
             'linkOptions' => ['data-method' => 'post']
         ];
-    }
+          }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
