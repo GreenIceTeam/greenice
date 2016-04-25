@@ -1,0 +1,63 @@
+ #bloc1,#bloc2{
+    background-color:rgb(221,255,187);
+    border-radius: 8px;
+}
+#bloc1{
+    height: 700px;
+}
+#bloc2{
+    height: 320px;
+    
+}
+#btns{
+    margin-top: 10px;
+    margin-left: 60px;
+}
+#stop{
+    width: 100px; 
+}
+#envoie{
+    width: 160px; 
+}
+.navbar-inverse{
+    background-color:  rgb(132,202,53); 
+}
+.wrap{
+    background-color: ivory;
+}
+#debutF{
+    border-radius:8px 8px 8px 8px;
+    background-color:rgb(221,255,187);
+    height: 320px;
+    margin-top: 50px;
+    
+}
+.col-lg-3{
+    color:black;
+    font-weight: bold;
+    text-align: justify;
+    font-size: 0.9em;
+}
+#loginform-rememberme{
+    margin-left: 2px;  
+}
+.btn{
+    margin-left: 10px;
+    margin-top: 10px;
+}
+#leg1,#leg2,#leg3{
+    background-color: rgb(166,204,132);
+    height: 40px;
+    color: white;
+    border-radius: 4px;
+}
+#leg2{
+    margin-top: 50px;
+}
+#leg4{
+    font-size: 2em;
+    color: black;
+}
+#w0{
+    background-color:#4bb42d;
+}
