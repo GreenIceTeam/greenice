@@ -10,6 +10,7 @@ class m160320_094309_insert_first_admin extends Migration
         $user=new common\models\User();
          $user->setPassword('Adm_pwd?');
          $user->generateAuthKey();
+         
          $actualDate = date("y-m-d H:i:s");
                 $this->insert('{{%user}}',  [ 'id' => 1,
                                                           'username' => 'admin1', 
@@ -20,7 +21,10 @@ class m160320_094309_insert_first_admin extends Migration
                                                           'password_hash'=>$user->password_hash, 
                                                           'auth_key'=>$user->auth_key,
                                                           'email'=> 'tedjoujospin@yahoo.fr'
-                                                     ]);
+
+                                                     ]
+                    );
+
 		/** Quelques domaines juste pour tester le système, ils seront 
 			supprimés une fois les listes de domaines etsous-domaines validées **/			
 					$this->insert('{{%domaine}}',  [ 'id_domaine' => 1,

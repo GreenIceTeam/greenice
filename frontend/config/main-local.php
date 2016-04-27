@@ -4,8 +4,10 @@ $config = [
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'RgsBNsUCyIeALDAWJ4A8wCmVVB5p6t8Z'
+
+            'cookieValidationKey' => 'lpHjVMJou2gkSvmn7n4x5aIwm0_crxXm',
         ],
+   
             'session'=>[
                                                     'name'=>'FRONTENDID4',
                                                     'savePath'=>__DIR__.'/../tmp',
