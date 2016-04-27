@@ -28,6 +28,15 @@ class PostForm extends Model
     {	
         return [
             ['content', 'required', 'message'=>'Ce champ est obligatoire'],
+          /**  ['content', 'required', 'when'=>  function($model){ return empty($mdel->file); },
+                                                         'whenClient'=>'function(attribute, value){ '
+                    . 'alert(  $("#post-form").children(":file").val());'
+                    . 'return $("#post-form").children(":file").val() == ""; }'
+                                                         ,'skipOnEmpty'=>false, 'skipOnError'=>false, 'message'=>'Choisissez un domaine'
+                            
+                            ],
+           **
+           */
             ['file', 'file'],
             [['idComm'], 'integer']
         ];
@@ -66,7 +75,7 @@ class PostForm extends Model
                     $this->file->saveAs('uploads/'.$file->nom);
                 }
                 
-                // That is y=the current publication id
+                // That is the current publication id
                 $idPubl = Publication::find()->select('id_publ')->orderBy('id_publ DESC')->scalar();
                 /** Select members of the concerned community **/
                 $members = AppartenirComm::find()->select(['id_user'])->where(['id_comm'=>$this->idComm])->all();

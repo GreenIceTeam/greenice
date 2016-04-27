@@ -8,6 +8,10 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use \yii\web\UploadedFile;
 use \yii\db\Connection;
+use frontend\modules\publication\models\CommentForm ;
+use \common\models\Commentaire;
+use \common\models\AimerComment;
+use \common\models\AimerPubl;
 use common\models\Publication;
 use common\models\RecevoirPubl;
 use common\models\Communaute;
@@ -63,7 +67,7 @@ class PublicationController extends Controller
        }else{
            $tab = [  ];
        }
-        $publs = $query->select('p.id_publ id_publ, contenu, u.nom nom, f.nom nom_fich')
+        $publs = $query->select('p.id_publ id_publ,p.id_comm idComm, contenu, u.nom nom, f.nom nom_fich')
                                                                                                ->offset($pageIndex)
                                                                                                 ->limit(self::PUBLBYPAGE)
                                                                                                 ->from('recevoir_publ rp')
@@ -94,30 +98,17 @@ class PublicationController extends Controller
         return $this->render('publication', ['publs'=>$publs, 'model'=>$model]);
     }
     
-    public function actionViewNew()
-    {
-        $publs = RecevoirPubl::find()->select('contenu, f.nom nom_fich, u.nom nom')->limit(self::PUBLBYPAGE)->leftJoin('fichier_assoc_publ fp', 'publication.id_publ = fp.id_publ')
-                                                                                                ->leftJoin('fichier f', 'fp.id_publ=f.id_publ')
-                                                                                                ->leftJoin('recevoir_publ rp', 'publication.id_publ=rp.id_publ')
-                                                                                               ->innerJoin('user u', 'u.id = rp.id_user')
-                                                                                                ->where(['affiche'=>'non', 'fp.id_user'=>'u.id4'])->all();
-        /** Updates table recevoir_publ to menton consulted publs  **/
-        
-        
-        return $this->render('publication', ['publs'=>$publs]);
-    }
     
       /** Check the post form submittion   and call the post method to handle it
        * @param $idComm is the id of the community where the post will be visible
        * **/ 
     public function actionPost()
     {
-        
      $publ = new PostForm();
     
      if( $publ->load( \Yii::$app->request->post())  ){
           $publ->file =UploadedFile::getInstance($publ, 'file');
-        
+        //return $publ->idComm;
           if( $publ->validate() ){
            if( $publ->post()){
                     return  $this->actionView($publ->idComm);
@@ -129,7 +120,57 @@ class PublicationController extends Controller
        
     }
      
-    
+    /** 
+     * User likes a publication
+     * **/
+    public function actionLike($idPubl){
+        if(isset( $idPubl) && !empty($idPubl) ){
+            $likePubl = new AimerPubl();
+            $likePubl->id_publ = $idPubl;
+            $likePubl->id_user = \Yii::$app->user->identity->id;
+            $likePubl->save();
+        
+        $idComm = Publication::find()->select('id_comm')->where(['id_publ'=>$idPubl])->scalar();
+        return $this->actionView($idComm);
+        }else{
+            return $this->render(['index']);
+        }
+     }
+     
+     public function actionComment($idPubl=NULL){
+          $comment = new CommentForm();
+         //if the form is not submitted
+          if(isset( $idPubl) && !empty($idPubl)){
+            return $this->render('commentPubl', [
+                                                                            'comment'=>$comment,
+                                                                            'idPubl'=>$idPubl
+                                                    ]);
+              
+           /**   
+           $idComment= new AimerComment();
+            $idComment->id_comment = $idPubl;
+            $idComment->id_user = \Yii::$app->user->id;
+            $idComment->save();
+            * **/
+        }else{
+             
+            if($comment->load(\Yii::$app->request->post())){
+                $comment->file = UploadedFile::getInstance($comment, 'file');
+          if( $comment->validate()){
+              if($comment->comment()){     
+              $idComm = Publication::find()->select('id_comm')->where(['id_publ'=>$comment->idPubl])->scalar();
+                    return  $this->actionView($idComm);
+              }       
+                
+           }
+            return ('Echec commentaire');
+     
+                
+            }
+        }
+     }
+     
+     
     
     
     

@@ -9,14 +9,15 @@ use yii\bootstrap\ActiveForm;
 
 $this->title = 'Publication';
  $this->params['breadcrumbs'][] = $this->title;
+$idComm = $publs[0]['idComm'];
 ?>
 <div class=''>
     <div class="row">
             <div class="col-lg-5">
-                <?php $form = ActiveForm::begin(['action'=>['publication/post'], 'id' => 'login-form', 'options'=>['enctype'=>'multipart/form-data'] ]); ?>
+                <?php $form = ActiveForm::begin(['action'=>['publication/post'], 'id' => 'post-form', 'options'=>['enctype'=>'multipart/form-data'] ]); ?>
                     <?= $form->field($model, 'content')->label('contenu')->textarea() ?>
                     <?= $form->field($model, 'file')->label('fichier')->fileInput() ?>
-                    <?= $form->field($model, 'idComm')->label('')->hiddenInput(['readonly'=>true, 'value'=>1 ]) ?>
+                    <?= $form->field($model, 'idComm')->label('')->hiddenInput(['readonly'=>true, 'value'=> $idComm ]) ?>
                 
                     <div class="form-group">
                         <?= Html::submitButton('Envoyer', ['class' => 'btn btn-primary', 'name' => '']) ?>
@@ -29,10 +30,10 @@ $this->title = 'Publication';
         <?php
         if(isset($publs) && !empty($publs)){  
         foreach ($publs as $key=>$publ){
-                echo '<hr/><div><h2>'.$publ['nom'].'</h2>';
-                echo('<div class="row-lg-3 col-lg-10"><span>'.$publ['contenu'].'</span></div>');
+                echo '<hr/><div class="col-lg-row"><h2>'.$publ['nom'].'</h2><div class="col-lg-10">';
+                echo('<div class="row-lg-4 col-lg-4"><span>'.$publ['contenu'].'</span></div>');
                 if( isset($publ['nom_fich'])){
-                    echo     ' <div clas="row"><img class="col-lg-3 row-lg-2" src="uploads/'.$publ['nom_fich'].'"/> </div></div><br/><br/><br/>';
+                    echo     ' <div clas="col-lg-6"><img class="col-lg-6" src="uploads/'.$publ['nom_fich'].'"/> </div></div></div><br/><br/><br/>';
                 //echo print_r($publ->idFichiers);
                }
             }
