@@ -89,7 +89,7 @@ class SignupForm extends Model
             $user->prenom = $this->prenom;
             $user->email = $this->email;
             $user->id_domaine = empty($this->domaineEtude) ? $this->domaineActivite : $this->domaineEtude;
-			$user->id_sous_dom = $this->sousDomaine;
+            $user->id_sous_dom = $this->sousDomaine;
             $user->sexe = $this->sexe;
            // $user->date_naiss = $this->dateNaiss;
             $user->ville = $this->ville;
