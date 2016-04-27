@@ -28,8 +28,6 @@
                 sousDom.html('<option value=""></option>'); 
                labSousDom.parent().css({'display':'none'});
         
-        });
-        
-        
-   
+        });   
+         
   });

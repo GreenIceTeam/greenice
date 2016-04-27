@@ -29,6 +29,12 @@ $config = [
     
     
     ];
+=======
+            'cookieValidationKey' => 'XdOGMxgNwquMYkhELsACOxkKCZ2jg-_9',
+        ],
+    ],
+];
+>>>>>>> 3b0f45070d25577b1cc18608d14a1526d41677f3
 
 if (!YII_ENV_TEST) {
     // configuration adjustments for 'dev' environment
