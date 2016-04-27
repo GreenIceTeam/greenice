@@ -39,7 +39,7 @@ class Fichier extends \yii\db\ActiveRecord
             [['id_user'], 'integer'],
             [['nom'], 'string', 'max' => 255],
             [['statut'], 'string', 'max' => 20],
-            [['statut'], 'in', 'range' => ['photo_profil', 'publication', 'message', 'comment']]
+            [['statut'], 'in', 'range' => ['photo_profil', 'publication', 'message', 'comment','ancien_profil']]
         ];
     }
 
