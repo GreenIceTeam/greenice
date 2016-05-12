@@ -19,7 +19,7 @@ class MessageForm extends Model
     {
 	return[
 				[['receiver', 'content'], 'required'],
-                                ['receiver', 'validateReceiver'],
+                               ['receiver', 'validateReceiver'],
                                 ['receiver', 'integer', 'min' => 1],
                                 ['fichier', 'file']
 		];
@@ -57,7 +57,7 @@ class MessageForm extends Model
             $message->date_env = date("y-m-d  H:i:s");
             $message->id_source = Yii::$app->getUser()->getId();
             $message->save();
-            
+           
             $messageRecu = new RecevoirMess;
             $messageRecu->id_mess = $message->id_mess;
             $messageRecu->id_dest = $this->receiver;

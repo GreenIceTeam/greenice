@@ -8,12 +8,14 @@ use common\models\User;
     <div>
     <?php
           $util = User::findOne($id_utilisateur->id_source);
-          $fichier = common\models\Fichier::find()->where('id_user = :id_user', [':id_user' => $id_utilisateur->id_source])->andWhere(['status' => 'profil']);
-    ?>
-        <img src=<?="uploads/"?><?=(!empty($fichier->nom))?$fichier->nom:'rien'?> alt="photo_de_profil"/>
+          $fichier = common\models\Fichier::find()->select('nom')->where(['id_user'  => $id_utilisateur->id_source])->andWhere(['statut' => 'photo_profil'])->scalar();
+   
+        $picName = (!empty($fichier)) ? $fichier :'rien'; 
+        ?>
+        <img  alt="photo_de_profil" src=<?php echo "uploads/".$picName ?> />
           <?= Html::encode("{$util->username} vous a écrit ") . $nombre[$id_utilisateur->id_source];?> <?= ($nombre[$id_utilisateur->id_source] == 1)?' message':' messages';?>
           <div>
-            <?= Html::a('Voir', 'http://localhost:82/greenice/frontend/web/index.php?r=message/message/view-mess&idSender=' . $util->id);?>
+            <?= Html::a('Voir', 'http://localhost/greenice/frontend/web/index.php?r=message/message/view-mess&idSender=' . $util->id);?>
           </div>
     <br/><hr/>
     </div>

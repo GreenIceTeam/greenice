@@ -8,7 +8,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\User */
 
 $this->title = 'View profile';
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Profile'), 'url' => ['view-profile']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Profile'), 'url' => ['view']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="col-lg-8">
@@ -21,12 +21,16 @@ $this->params['breadcrumbs'][] = $this->title;
     
     </div> 
     
-    <?= DetailView::widget([
+    <?php
+    $domEtud = $model->domaineEtude;
+    $domAct = $model->domaineActivite;
+    $domain = ( isset($domEtud) && !empty($domEtud)) ? 'domaineEtude' : 'domaineActivite';
+    echo DetailView::widget([
         'model' => $model,
         'attributes' => [
             'statutSocial',
            
-            'domaineEtude',
+            $domain,
             'sousDomaine',
             'username',
             'nom',

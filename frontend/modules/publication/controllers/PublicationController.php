@@ -23,8 +23,6 @@ class PublicationController extends Controller
     /**$pageIndex  is thenumber of set of 1. publications already delivered. A page is a set of 1. publs
      * PUBLBYPAGE is the number of publ by page.
      *                        **/
-    
-    
     const  PUBLBYPAGE = 10;
 
 

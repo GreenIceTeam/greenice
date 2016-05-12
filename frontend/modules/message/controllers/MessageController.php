@@ -14,8 +14,6 @@ use common\models\RecevoirMess;
 class MessageController extends Controller
 {
     
-    private $pageIndex = 0;
-    
     const MESSBYPAGE = 10;
 
     public function behaviors()
@@ -101,7 +99,6 @@ class MessageController extends Controller
                     $me->save();
                 }
             }
-
             return $this->render('view-new-mess', ['messages' => $messages]);
         }
     }
@@ -142,7 +139,6 @@ class MessageController extends Controller
                 }
             }
         }
-        
         return $this->render('view-group', ['id_utilisateurs' => $id_utilisateurs, 'nombre' => $nombre]);
     }
     
