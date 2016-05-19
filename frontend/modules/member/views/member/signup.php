@@ -17,23 +17,25 @@ use yii\jui\DatePicker;
 $this->registerCss('.field-signupform-domaineetude{display: none}');
 $this->registerCss('.field-signupform-domaineactivite{display: none}');
 $this->registerCss('.field-signupform-sousdomaine{display: none}');
-$this->registerCssFile('css/login.css');
+//$this->registerCssFile('css/login.css');
 ?>
 <div class="site-signup">
     <h1><?= Html::encode($this->title) ?></h1>
 
 <!--    <p>Please fill out the following fields to signup:</p>-->
     <div class="container">
-        <div class="row">
-            <div id="bloc1"class="col-lg-offset-1 col-lg-5 col-md-offset-1 col-md-5 col-sm-offset-1 col-sm-5">
-                <div class="row">
-                    <legend id="leg1"><center>Etape 1</center></legend>
-                </div>
-
+        
+<div class="row">
                 <?php
                 $form = ActiveForm::begin(['options' => ['id' => 'form-signup', 'class' => 'col-lg-12'],
                             'fieldConfig' => ['inputOptions' => ['class' => 'form-control']]]);
                 ?>
+        
+        <div class="row">
+            <div id="bloc1" class="col-lg-offset-1 col-lg-5 col-md-offset-1 col-md-5 col-sm-offset-1 col-sm-5">
+                <div class="row">
+                    <legend id="leg1"><center>Etape 1</center></legend>
+                </div>
                 <div class="row">
                     <?= $form->field($model, 'nom')->textInput()->label('Nom') ?>
                     <?= $form->field($model, 'prenom')->textInput() ?>
@@ -57,8 +59,6 @@ $this->registerCssFile('css/login.css');
 
                 </div>
 
-
-
                 <div class="row">
                     <?= $a = $form->field($model, 'email')->textInput()->label('email') ?>
                     <?= $form->field($model, 'username')->label('nom d\'utilisateur') ?>
@@ -66,6 +66,7 @@ $this->registerCssFile('css/login.css');
                     <?= $form->field($model, 'password_repeat')->passwordInput()->label('Retapez votre mot de passe') ?>
                 </div>
             </div>
+            
             <div id="bloc2" class="col-lg-offset-1 col-lg-5 col-md-offset-1 col-md-5 col-sm-offset-1 col-sm-5">
                 <div class="row">
                     <legend id="leg3"><center>Etape 3</center></legend>
@@ -109,8 +110,9 @@ $this->registerCssFile('css/login.css');
             </div>
             <?php // Html::submitButton('Annuler', ['id' => 'stop', 'class' => 'btn btn-success pull-right', 'name' => 'signup-button']) ?>
             <?= Html::submitButton('Envoyer le formulaire', ['id' => 'envoie', 'class' => 'btn btn-success pull-right', 'name' => 'signup-button']) ?>  
-            <?php ActiveForm::end(); ?>
+            
         </div>
+        <?php ActiveForm::end(); ?>
     </div>
 </div>
 
@@ -119,8 +121,6 @@ $this->registerCssFile('css/login.css');
 <?php
 $this->registerJsFile('js/jquery.min.js');
 
-$this->registerJsFile('js/memberSignup.js'
-        //            , ['depends'=>'frontend\assets\AppAsset']
-);
-$this->registerJsFile('js/formulaires.js');
+$this->registerJsFile('js/memberSignup.js');
 
+$this->registerJsFile('js/formulaires.js');

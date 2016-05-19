@@ -36,6 +36,9 @@ class Message extends \yii\db\ActiveRecord
         return [
             [['id_source'], 'integer'],
             [['contenu'], 'string'],
+            [[ 'supprime'], 'string', 'max'=>3],
+            ['supprime', 'default', 'value'=> 'non'],
+            ['supprime', 'in', 'range'=> ['oui', 'non'] ], 
             [['date_env'], 'safe']
         ];
     }

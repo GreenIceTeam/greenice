@@ -188,6 +188,7 @@ class m130524_201442_init extends Migration
             'id_mess' => $this->primaryKey(),
             'id_source' => $this->integer(11),
             'contenu' => $this->text(),
+             'supprime'=> $this->string(3)->check("type in ('oui', 'non')"), //meesage supprimé par l'auteur
             'date_env' => $this->dateTime()
           ],$tableOptions);
             $this->addForeignKey('fk1_message', 'message', 'id_source', 'user', 'id');

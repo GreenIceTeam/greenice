@@ -22,6 +22,7 @@ class ContactController extends \yii\web\Controller
             }
 
     }
+    }
 
 public function actionViewMembers()
     {

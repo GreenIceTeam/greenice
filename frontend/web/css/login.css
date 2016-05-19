@@ -52,7 +52,7 @@
     border-radius: 4px;
 }
 #leg2{
-    margin-top: 50px;
+    //margin-top: 50px;
 }
 #leg4{
     font-size: 2em;
@@ -60,4 +60,16 @@
 }
 #w0{
     background-color:#4bb42d;
+}
+
+#w0-collapse ul li a{
+    color: white;
+}
+
+#logo{
+    width: 40px;
+    heigth: 40px;
+    margin-top: 10px;
+    border-radius: 4px;
+    border: 1px solid green;
 }

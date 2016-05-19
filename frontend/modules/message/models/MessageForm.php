@@ -11,16 +11,16 @@ use common\models\User;
 class MessageForm extends Model
 {
     public $content;
-    public $receiver;
+    public $idReceiver;
     public $fichier;
 
 
     public function rules()
     {
 	return[
-				[['receiver', 'content'], 'required'],
-                               ['receiver', 'validateReceiver'],
-                                ['receiver', 'integer', 'min' => 1],
+                                [[ 'content'], 'required'],
+                             //  ['idReceiver', 'validateReceiver'],
+                                ['idReceiver', 'integer', 'min' => 1],
                                 ['fichier', 'file']
 		];
     }
@@ -36,7 +36,7 @@ class MessageForm extends Model
     {
         if (!$this->hasErrors())
         {
-            $user = User::findOne($this->receiver);
+            $user = User::findOne($this->idReceiver);
             if (!$user) {
                 $this->addError($attribute, 'Utilisateur inexistant');
             }
@@ -51,16 +51,17 @@ class MessageForm extends Model
     public function send()
     {
         if ($this->validate())
-        {
+        {   //Save the message in the database
             $message = new Message;
             $message->contenu = $this->content;
             $message->date_env = date("y-m-d  H:i:s");
             $message->id_source = Yii::$app->getUser()->getId();
             $message->save();
            
+            //insert who the receiver is
             $messageRecu = new RecevoirMess;
             $messageRecu->id_mess = $message->id_mess;
-            $messageRecu->id_dest = $this->receiver;
+            $messageRecu->id_dest = $this->idReceiver;
             $messageRecu->lu = 'non';
             $messageRecu->affiche = 'non';
             $messageRecu->nouveau = 'oui';

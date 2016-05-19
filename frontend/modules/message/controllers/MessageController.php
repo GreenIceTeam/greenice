@@ -21,13 +21,13 @@ class MessageController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup', 'createAdmin'],
+                'only' => ['view-mess', 'view-group', 'send', 'delete'],
                 'rules' => [
                     [ 'actions' => ['signup'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
-                    ['actions' => ['logout', 'createAdmin'],
+                    ['actions' => ['view-mess', 'view-group', 'send', 'delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -41,25 +41,49 @@ class MessageController extends Controller
     
     /*
      *  This action allows to the user to send a message
-     * 
+     *  The action only handle form submittion. It doesn't display the form.
      *  @params array $idUser if the message is send to several users
      *  return View
      */
-    public function actionSend($idUser)
+    public function actionSend()
     {
         $model = new MessageForm;
-        $model->receiver = $idUser;
         
-        if (Yii::$app->request->ispost){
+        //if (Yii::$app->request->ispost){
             $model->load(Yii::$app->request->post());
             $model->fichier = \yii\web\UploadedFile::getInstance($model, 'fichier');
             
             if ($model->send()){
-                
-                return $this->goBack();
+          //       return $this->render('do it');
+                return $this->actionViewMess($model->idReceiver);
             }
-        }
-        return $this->render('send', ['model' => $model]);
+        //}
+        return ('Echec de l\'opération');
+    }
+    /** 
+     * That function make an SQl request to retrieve datas about the receives messages of the current user
+     * @return an ActicveQuery object
+     */
+    private function getMessAndSenders($idSender, $new){
+        $req = $new==false ? [] : ['nouveau'=>'oui']; 
+        $idUtil = Yii::$app->getUser()->getId();
+        $query = new yii\db\Query();
+       $res =  $query->select('u2.nom nom,u2.id id,  m.id_source, id_dest, m.id_mess, date_env, contenu, f.nom nom_fich, f2.nom photo_profil')
+                                        ->from('recevoir_mess rm')
+                                        ->innerJoin('message m', 'rm.id_mess=m.id_mess')
+                                       ->innerJoin('user u', 'u.id = rm.id_dest')
+                                        ->innerJoin('user u2', 'u2.id = m.id_source')
+                                        ->leftJoin('fichier_assoc_mess fm', 'fm.id_mess = m.id_mess')
+                                        ->leftJoin('fichier f', 'fm.id_fichier=f.id_fichier') 
+                                        ->leftJoin('fichier f2', 'f2.id_user=u2.id  and f2.statut="photo_profil"') 
+                                        ->where(['m.id_source' => $idSender, 'rm.id_dest'=>$idUtil])
+                                        ->orWhere(['m.id_source' => $idUtil, 'rm.id_dest'=>$idSender])
+                                        ->andWhere($req)
+                                        ->andWhere(['m.supprime'=>'non'])
+                                        ->orderBy('m.id_mess desc')
+                                        ->all();
+         return $res;
+        
     }
     
     /*
@@ -71,14 +95,23 @@ class MessageController extends Controller
      */
     public function actionViewMess($idSender, $new = false)
     {
-        $idUtil = Yii::$app->getUser()->getId();
-        $query = Message::find()->innerJoinWith('recevoirMesses')->where('id_dest = :id_dest', [':id_dest' => $idUtil])->andWhere(['id_source' => $idSender]);
+        if(isset($idSender) && !empty($idSender) && is_numeric($idSender)){
+        $model = new MessageForm;
+        $model->idReceiver = $idSender;
         
+        
+        $query = new \yii\db\Query;
+        $messages = $this->getMessAndSenders($idSender, $new);
+      
         if ($new == false){
             
-            $messages = $query->all();
+         //   $messages = $query->all();
+            
             foreach ($messages as $message){
-                $id = $message->getRecevoirMesses()->one()->id_dest;
+                
+              //   return 'aaaaaaaaaaaa'.print_r($message);
+                
+                $id = $message['id_dest'];
                 $m = RecevoirMess::findAll($id);
                 foreach ($m as $me){
                     $me->affiche = 'oui';
@@ -86,13 +119,14 @@ class MessageController extends Controller
                 }
             }
 
-            return $this->render('view-mess', ['messages' => $messages]);
+            return $this->render('view-mess', ['messages' => $messages,
+                                                                    'model'=>$model]);
             
         }  else {
         
             $messages = $query->andWhere(['nouveau' => 'oui', 'affiche' => 'non'])->orderBy('id_mess')->all();
             foreach ($messages as $message){
-                $id = $message->getRecevoirMesses()->one()->id_dest;
+                $id = $message->id_dest;
                 $m = RecevoirMess::findAll($id);
                 foreach ($m as $me){
                     $me->affiche = 'oui';
@@ -101,8 +135,10 @@ class MessageController extends Controller
             }
             return $this->render('view-new-mess', ['messages' => $messages]);
         }
+    }else{
+        return $this->render('index');
     }
-    
+    }
     /*
      *  This action allows to the user to delete a specific message
      * 
@@ -111,11 +147,29 @@ class MessageController extends Controller
      */
     public function actionDelete($idMess)
     {
+        if(isset($idMess) && !empty($idMess) && is_numeric($idMess)){
+            $idSender = Message::find()->select('id_source')->where(['id_mess'=>$idMess])->scalar();
         $idUtil = Yii::$app->getUser()->getId();
+        $connection = \Yii::$app->db;
+        /**
+         * Si le user est l'auteur du message qu'il veut supprimer, on met le champ 'supprime' à oui dans la ta table 'message'
+         * S'il n'est pas  auteur masi destinataire du message, on efface le tuple correspondant dans la table recevoir_mess
+         */
+        if($idSender == $idUtil){
+        $command = $connection->createCommand()->update('message', ['supprime'=>'oui'], ['id_mess'=>$idMess])->execute();
+        }else{    
+            $command2 = $connection->createCommand()->delete('recevoir_mess', ['id_dest'=>$idUtil, 'id_mess'=>$idMess])->execute();
+        }
+         
+    //    RecevoirMess::deleteAll('id_dest = :id_dest AND id_mess = :id_mess', [':id_dest' => $idUtil, ':id_mess' => $idMess]);
         
-        RecevoirMess::deleteAll('id_dest = :id_dest AND id_mess = :id_mess', [':id_dest' => $idUtil, ':id_mess' => $idMess]);
-        
-        return $this->goBack();
+        //return $this->goBack();
+        return $this->actionViewMess($idSender);
+        }  else {
+            
+       $this->render('index');
+       
+        }
     }
     
     /*
@@ -126,20 +180,19 @@ class MessageController extends Controller
     public function actionViewGroup()
     {
         $idUtil = Yii::$app->getUser()->getId();
-        
-        $messagesrecus = RecevoirMess::find()->where('id_dest = :id_dest', [':id_dest' => $idUtil])->all();
-        
-        $id_utilisateurs = Message::find()->select(['id_source'])->distinct()->innerJoinWith('recevoirMesses')->where('id_dest = :id_dest', [':id_dest' => $idUtil])->all();
-        
-        foreach ($id_utilisateurs as $id_utilisateur){
-            $nombre[$id_utilisateur->id_source] = 0;
-            foreach ($messagesrecus as $m){
-                if ($id_utilisateur->id_source == $m->getIdMess()->one()->id_source){
-                    $nombre[$id_utilisateur->id_source] = $nombre[$id_utilisateur->id_source] + 1;
-                }
-            }
-        }
-        return $this->render('view-group', ['id_utilisateurs' => $id_utilisateurs, 'nombre' => $nombre]);
+        $query = new \yii\db\Query();
+        $messGroupSenders =$query->select('m.id_source id, count(m.id_mess) nb_mess, u2.nom nom, f.nom nom_fich')
+                                                                                 ->from('message m')
+                                                                                 ->distinct()
+                                                                                  ->innerJoin('recevoir_mess rm', 'rm.id_mess=m.id_mess')
+                                                                                  ->innerJoin('user u', 'u.id=rm.id_dest')
+                                                                                  ->innerJoin('user u2', 'u2.id=m.id_source')
+                                                                                 ->leftJoin('fichier f', "f.id_user=m.id_source  and f.statut='photo_profil' ")
+                                                                                ->groupBy('m.id_source')
+                                                                                ->orderBy('m.id_mess desc')
+                                                                                 ->where(['rm.id_dest' => $idUtil])
+                                                                                 ->all();
+        return $this->render('view-group', ['messGroupSenders' => $messGroupSenders]);
     }
     
 }

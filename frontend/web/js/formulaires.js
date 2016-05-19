@@ -20,10 +20,9 @@ $(document).ready(function (elt) {
       }
     });
   
-   var logo = '<img id="logo" src="/greenice/frontend/web/images/logo.jpg" alt="image_logo"/>';
-   $('.navbar-header a').replaceWith(logo);
-   $('#logo').css('width','40px').css('heigth','40px').css('margin-top','10px').css('border-radius','4px').css('border','1px solid green');
-   $('#w0-collapse ul li a').css('color','white');
+   
+   //$('#logo').css('width','40px').css('heigth','40px').css('margin-top','10px').css('border-radius','4px').css('border','1px solid green');
+   //$('#w0-collapse ul li a').css('color','white');
 });
 
         

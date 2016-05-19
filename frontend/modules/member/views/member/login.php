@@ -6,8 +6,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->registerCssFile('css/login.css');
-//$this->title = 'Login';
+//$this->title = 'Connexion';
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
@@ -32,8 +31,6 @@ $this->registerCssFile('css/login.css');
                         <?= Html::submitButton('Login', ['class' => 'btn btn-success pull-right', 'name' => 'login-button']) ?>
                     </div>
                 </div>
-
-
 
                 <?php ActiveForm::end(); ?>
             </div>

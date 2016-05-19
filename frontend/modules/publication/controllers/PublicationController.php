@@ -7,7 +7,6 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use \yii\web\UploadedFile;
-use \yii\db\Connection;
 use frontend\modules\publication\models\CommentForm ;
 use \common\models\Commentaire;
 use \common\models\AimerComment;
@@ -54,18 +53,16 @@ class PublicationController extends Controller
     
     public function actionView($idComm, $new=false)
     {
+       if(isset( $idComm) && !empty($idComm) && is_numeric($idComm) ){
         $pageIndex = (Yii::$app->session['publPageIndex']);
         /**  To delete after Ajax call implementation**/
         $pageIndex = 0;
         $id = \Yii::$app->user->identity->id;
        $query = new \yii\db\Query;
       
-       if(isset($new) && $new == true){
-           $tab = [ 'affiche'=> 'non', 'nouveau'=>'non' ];
-       }else{
-           $tab = [  ];
-       }
-        $publs = $query->select('p.id_publ id_publ,p.id_comm idComm, contenu, u.nom nom, f.nom nom_fich')
+           $tab =  ($new == false) ? [] : ['affiche'=> 'non', 'nouveau'=>'oui' ];
+      
+        $publs = $query->select('p.id_publ id_publ,p.id_comm idComm, contenu, u2.nom nom, f.nom nom_fich, f2.nom photo_profil')
                                                                                                ->offset($pageIndex)
                                                                                                 ->limit(self::PUBLBYPAGE)
                                                                                                 ->from('recevoir_publ rp')
@@ -73,28 +70,34 @@ class PublicationController extends Controller
                                                                                                 ->leftJoin('fichier_assoc_publ fp', 'p.id_publ = fp.id_publ')
                                                                                                 ->leftJoin('fichier f', 'fp.id_fichier=f.id_fichier') 
                                                                                                  ->innerJoin('user u', 'u.id = rp.id_user')
-                                                                                               ->leftJoin('fichier f2', 'f2.id_user=u.id and f2.statut="photo_profi"') 
+                                                                                                 ->innerJoin('user u2', 'u2.id = p.id_auteur')
+                                                                                               ->leftJoin('fichier f2', 'f2.id_user=u.id and f2.statut="photo_profil"') 
                                                                                                 ->where([ 'p.id_comm'=>$idComm])
                                                                                                   ->andWhere($tab)
                                                                                                   ->orderBy('p.id_publ DESC')
                                                                                                    ->all();
+        if(!empty($publs)){
+            $model = new PostForm(); 
+            /** Updates table recevoir_publ to menton consulted publs **/
+            $connection = \Yii::$app->db; 
+            foreach($publs as $publ){   
+                $command = $connection->createCommand()->update('recevoir_publ', ['affiche'=>'oui'], [ 'affiche'=>'non','id_publ'=>$publ['id_publ']] )
+                                                                                    ->execute();
+                $command2 = $connection->createCommand()->update('recevoir_publ', ['nouveau'=>'oui'], [ 'nouveau'=>'non','id_publ'=>$publ['id_publ']] )
+                                                                                    ->execute();
+            }
 
-        $model = new PostForm(); 
-        /** Updates table recevoir_publ to menton consulted publs **/
-        $connection = \Yii::$app->db; 
-        foreach($publs as $publ){   
-            $command = $connection->createCommand()->update('recevoir_publ', ['affiche'=>'oui'], [ 'affiche'=>'non','id_publ'=>$publ['id_publ']] )
-                                                                                ->execute();
-            $command2 = $connection->createCommand()->update('recevoir_publ', ['nouveau'=>'oui'], [ 'nouveau'=>'non','id_publ'=>$publ['id_publ']] )
-                                                                                ->execute();
+           Yii::$app->session['publPageIndex'] = Yii::$app->session['publPageIndex'] +1;  
+
+                //return Yii::$app->session['publPageIndex'].''.$new;
+
+            return $this->render('publication', ['publs'=>$publs, 'model'=>$model]);
         }
-        
-       Yii::$app->session['publPageIndex'] = Yii::$app->session['publPageIndex'] +1;  
+        }
+           return $this->render('index');
        
-            //return Yii::$app->session['publPageIndex'].''.$new;
-       
-        return $this->render('publication', ['publs'=>$publs, 'model'=>$model]);
     }
+    
     
     
       /** Check the post form submittion   and call the post method to handle it
@@ -122,14 +125,18 @@ class PublicationController extends Controller
      * User likes a publication
      * **/
     public function actionLike($idPubl){
-        if(isset( $idPubl) && !empty($idPubl) ){
-            $likePubl = new AimerPubl();
-            $likePubl->id_publ = $idPubl;
-            $likePubl->id_user = \Yii::$app->user->identity->id;
-            $likePubl->save();
-        
-        $idComm = Publication::find()->select('id_comm')->where(['id_publ'=>$idPubl])->scalar();
-        return $this->actionView($idComm);
+        if(isset( $idPubl) && !empty($idPubl) && is_numeric($idPubl) ){
+            //For security issue, the following sql request verify whether the $idPubl param is a valid publication id
+            $isValidPubl = (empty(Publication::find()->where(['id_publ'=>$idPubl])->scalar())) ? false: true;
+            if($isValidPubl){
+                $likePubl = new AimerPubl();
+                $likePubl->id_publ = $idPubl;
+                $likePubl->id_user = \Yii::$app->user->identity->id;
+                $likePubl->save();
+
+                $idComm = Publication::find()->select('id_comm')->where(['id_publ'=>$idPubl])->scalar();
+                return $this->actionView($idComm);
+            }
         }else{
             return $this->render(['index']);
         }
@@ -138,12 +145,15 @@ class PublicationController extends Controller
      public function actionComment($idPubl=NULL){
           $comment = new CommentForm();
          //if the form is not submitted
-          if(isset( $idPubl) && !empty($idPubl)){
+          if(isset( $idPubl) && !empty($idPubl) && is_numeric($idPubl)){
+            //For security issue, the following sql request verify whether the $idPubl param is a valid publication id
+            $isValidPubl = (empty(Publication::find()->where(['id_publ'=>$idPubl])->scalar())) ? false: true;
+           if($isValidPubl){
             return $this->render('commentPubl', [
                                                                             'comment'=>$comment,
                                                                             'idPubl'=>$idPubl
                                                     ]);
-              
+           }  
            /**   
            $idComment= new AimerComment();
             $idComment->id_comment = $idPubl;
@@ -161,17 +171,12 @@ class PublicationController extends Controller
               }       
                 
            }
-            return ('Echec commentaire');
-     
                 
             }
         }
+        return ('Echec commentaire');
      }
      
      
-    
-    
-    
-    
     
 }
