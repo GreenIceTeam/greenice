@@ -32,11 +32,11 @@ $this->registerCss('.field-signupform-sousdomaine{display: none}');
                 ?>
         
         <div class="row">
-            <div id="bloc1" class="col-lg-offset-1 col-lg-5 col-md-offset-1 col-md-5 col-sm-offset-1 col-sm-5">
+            <div id="bloc1" class="col-lg-offset-1 col-lg-5 col-md-offset-1 col-md-5 col-sm-offset-1 col-sm-5" >
                 <div class="row">
                     <legend id="leg1"><center>Etape 1</center></legend>
                 </div>
-                <div class="row">
+                <div class="row field-container" >
                     <?= $form->field($model, 'nom')->textInput()->label('Nom') ?>
                     <?= $form->field($model, 'prenom')->textInput() ?>
                     <?php /*                     * ' Né(e) le'.DatePicker::widget([
@@ -53,13 +53,13 @@ $this->registerCss('.field-signupform-sousdomaine{display: none}');
                             ['H' => 'Homme', 'F' => 'Femme']
                     )
                     ?>
-                    <div class="row">
-                        <legend id="leg2"><center>Etape 2</center></legend>
-                    </div>
-
+                    
                 </div>
 
-                <div class="row">
+                <div class="row ">
+                        <legend id="leg2"><center>Etape 2</center></legend>
+                    </div>
+                <div class="row field-container">
                     <?= $a = $form->field($model, 'email')->textInput()->label('email') ?>
                     <?= $form->field($model, 'username')->label('nom d\'utilisateur') ?>
                     <?= $form->field($model, 'password')->passwordInput()->label('mot de passe') ?>
@@ -71,8 +71,9 @@ $this->registerCss('.field-signupform-sousdomaine{display: none}');
                 <div class="row">
                     <legend id="leg3"><center>Etape 3</center></legend>
                 </div>
-                    <?=
-                    $form->field($model, 'statutSocial')->label('Vous êtes:',['id'=>'labelIsole'])->radioList(['etudiant' => 'etudiant', 'travailleur' => 'travailleur'], ['item' => function($index, $label, $name, $checked, $value) {
+                    <div class='row field-container'>
+                             <?=$form->field($model, 'statutSocial')->label('Vous êtes:',['id'=>'labelIsole'])
+                                    ->radioList(['etudiant' => 'etudiant', 'travailleur' => 'travailleur'], ['item' => function($index, $label, $name, $checked, $value) {
                             $res = '<label class="modal-info">'
                                     . '<input type="radio" name="' . $name . '" value="' . $value . '" id="statut' . $index . '">'
                                     . '<span>' . ucwords($label) . '</span></label>';
@@ -107,6 +108,7 @@ $this->registerCss('.field-signupform-sousdomaine{display: none}');
                                     ArrayHelper::map(SousDomaine::find()->where(['id_domaine' => $model->domaineEtude])->all(), 'id_sous_dom', 'nom'));
                     ?>
                     <?= $form->field($model, 'ville')->textInput() ?>
+                    </div>
             </div>
             <?php // Html::submitButton('Annuler', ['id' => 'stop', 'class' => 'btn btn-success pull-right', 'name' => 'signup-button']) ?>
             <?= Html::submitButton('Envoyer le formulaire', ['id' => 'envoie', 'class' => 'btn btn-success pull-right', 'name' => 'signup-button']) ?>  

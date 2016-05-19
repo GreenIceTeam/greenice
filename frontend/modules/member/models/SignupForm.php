@@ -35,7 +35,7 @@ class SignupForm extends Model
         return [
             ['username', 'filter', 'filter' => 'trim'],
             
-            [['username', 'email', 'password','nom','prenom','sexe','ville',  'sousDomaine', 'statutSocial'], 'required', 'message'=>'Ce champ est obligatoire'],
+            [['username', 'email', 'password','nom','prenom','sexe','ville', 'statutSocial'], 'required', 'message'=>'Ce champ est obligatoire'],
             
             ['domaineActivite', 'required',  'when'=>function($model){ return $model->statutSocial == 'travailleur'; },                                                       
                                                             'whenClient'=>'function(attribute, value){ return $("#labAct").parent().css("display") != "none"; }'
@@ -46,6 +46,13 @@ class SignupForm extends Model
                                                             'whenClient'=>'function(attribute, value){ return $("#labEtud").parent().css("display") != "none"; }'
                                                              ,'skipOnEmpty'=>false, 'skipOnError'=>false, 'message'=>'Choisissez un domaine'
              ],
+                      
+              ['sousDomaine', 'required',  'when'=>function($model){ return $model->domaineActivite != '' ||  $model->domaineEtude != ''; },                                                       
+                                                            'whenClient'=>'function(attribute, value){ return $("#labSousDom").parent().css("display") != "none"; }'
+                                                             ,'skipOnEmpty'=>false, 'skipOnError'=>false, 'message'=>'Choisissez un sous-domaine'
+             ],
+              
+             
                                                                          
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Ce nom est  déjà pris'],
             ['username', 'string', 'min' => 2, 'max' => 255, 'tooLong'=>'Ce champ ne doit pas dépasser 255 caractère', 'tooShort'=>'Ce champ doit dépasser 2 caractères'],

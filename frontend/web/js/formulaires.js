@@ -12,7 +12,7 @@ $(document).ready(function (elt) {
                 input3 = children3;
         //alert(input1.attr('class'));
         parentDiv.addClass('row');
-        $(this).addClass('col-lg-3 col-md-3 col-sm-3 col-xs-2');
+        $(this).addClass('col-lg-3 col-md-2 col-sm-3 col-xs-2');
         $(this).after(divInput);
         divInput.prepend(input1);
         divInput.prepend(input2);
