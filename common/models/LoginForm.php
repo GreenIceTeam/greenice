@@ -22,8 +22,10 @@ class LoginForm extends Model
     public function rules()
     {
         return [
-            // username and password are both required
-            [['username', 'password'], 'required'],
+            // password is required
+            [ 'password', 'required','message'=>'ce champ ne doit pas être vide '],
+            // username is required 
+            ['username', 'required','message'=>'ce champ ne doit pas être vide '],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()

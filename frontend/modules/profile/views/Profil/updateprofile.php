@@ -22,7 +22,7 @@ $this->title = Yii::t('app', 'Update {modelClass} ', [
     'modelClass' => 'Profile',
 ]);
 
-$this->params['breadcrumbs'][] = ['label' =>'profil', 'url' => ['view-profile']];
+$this->params['breadcrumbs'][] = ['label' =>'profil', 'url' => ['view']];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
 ?>
@@ -46,8 +46,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
                                 <?= $form->field($model, 'ville')->textInput(['maxlength' => true]) ?>
 
-                                <?= $form->field($model, 'date_naiss')->label('date de naissance') ?>
-        
+                                
          <?= $form->field($model, 'statutSocial')->label('Vous êtes:')->radioList(['etudiant'=>'etudiant', 'travailleur'=>'travailleur'], 
                                                                                         ['item'=>function($index, $label, $name, $checked, $value){     
                                                                                                                $res = '<label class="modal-info">'

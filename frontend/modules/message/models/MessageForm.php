@@ -18,7 +18,7 @@ class MessageForm extends Model
     public function rules()
     {
 	return[
-                                [[ 'content'], 'required'],
+                                ['content', 'required','message'=>'ce champ doit être rempli'],
                              //  ['idReceiver', 'validateReceiver'],
                                 ['idReceiver', 'integer', 'min' => 1],
                                 ['fichier', 'file']

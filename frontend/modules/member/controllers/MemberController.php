@@ -99,7 +99,7 @@ public function actionLogout()
             if ($user = $model->signup()) {
                 
                 if (Yii::$app->getUser()->login($user)) { 
-                   return $this->render('index');
+                   return  $this->redirect('member/member/index');
                 }
             }
         }

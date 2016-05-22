@@ -2,6 +2,9 @@
 use yii\helpers\Html;
 use common\models\User;
 use yii\widgets\ActiveForm;
+
+$this->title = 'View-mess';
+
 ?>
 <h1>Messages</h1>
 <div>

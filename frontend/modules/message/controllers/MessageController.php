@@ -58,7 +58,7 @@ class MessageController extends Controller
                 return $this->actionViewMess($model->idReceiver);
             }
         //}
-        return ('Echec de l\'opération');
+        return ('echec de l\'operation');
     }
     /** 
      * That function make an SQl request to retrieve datas about the receives messages of the current user
