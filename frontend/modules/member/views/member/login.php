@@ -19,14 +19,14 @@ $this->title = 'Connexion';
                 <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
                 <legend id="leg4"><center>Login</center></legend>
-                <?= $form->field($model, 'username') ?>
+                <?= $form->field($model, 'username')->label('Nom d\'utilisateur ou Mot de passe') ?>
 
-                <?= $form->field($model, 'password')->passwordInput() ?>
+                <?= $form->field($model, 'password')->label('Mot de Passe')->passwordInput() ?>
 
-                <?= $form->field($model, 'rememberMe')->checkbox() ?>
+                <?= $form->field($model, 'rememberMe')->label('Se souvenir de moi')->checkbox() ?>
 
                 <div style="color:#999;margin:1em 0">
-                    If you forgot your password you can <?= Html::a('reset it', ['site/request-password-reset']) ?>.
+                    Mot de passe oublié? <?= Html::a('Changer le', ['member/member/request-password-reset']) ?>.
                     <div id="btn" class="form-group">
                         <?= Html::submitButton('Login', ['class' => 'btn btn-success pull-right', 'name' => 'login-button']) ?>
                     </div>

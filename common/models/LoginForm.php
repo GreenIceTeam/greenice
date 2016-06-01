@@ -72,12 +72,14 @@ class LoginForm extends Model
      */
     protected function getUser()
     {
+        //If username have been used to login
         if ($this->_user === null) {
             $this->_user = User::findByUsername($this->username);
         }
+        //if email have been use
         if ($this->_user === null) {
             $logger = User::findByEmail($this->username);
-            if ($logger->role == "member") {
+            if (is_object($logger) && $logger->role == "member") {
                 $this->_user = $logger;
             }
         }
