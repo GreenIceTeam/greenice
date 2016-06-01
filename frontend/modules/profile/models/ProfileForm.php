@@ -38,7 +38,7 @@ class ProfileForm extends Model
             ['username', 'filter', 'filter' => 'trim'],
             ['sousDomaine', 'integer'],
             [['username'], 'required','message'=>'ce champ doit être renseigné '],
-            ['statutSocial', 'required','message'=>'votre statut doit être renseigné '],
+           // ['statutSocial', 'required','message'=>'votre statut doit être renseigné '],
             ['statutSocial', 'string'],
             ['domaineActivite', 'required',  'when'=>function($model){ return $model->statutSocial == 'travailleur'; },                                                       
                                                             'whenClient'=>'function(attribute, value){ return $("#labAct").parent().css("display") != "none"; }'

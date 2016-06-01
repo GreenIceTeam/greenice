@@ -51,6 +51,10 @@ class PublicationController extends Controller
        return $this->render('index');
     }
     
+    /** This action displays the publication of a given community
+     ** @param integer $idComm is the community id, the publications of that community will be displayed 
+     ** @param boolean $new specified whether only the new publication will be displayed or not.
+    **/
     public function actionView($idComm, $new=false)
     {
        if(isset( $idComm) && !empty($idComm) && is_numeric($idComm) ){
@@ -141,10 +145,13 @@ class PublicationController extends Controller
             return $this->render(['index']);
         }
      }
-     
+     /**
+      ** This action is called when a user comment a publication
+      ** @param integer $idPubl is the publication id
+      **/
      public function actionComment($idPubl=NULL){
           $comment = new CommentForm();
-         //if the form is not submitted
+         //if the form is not submitted, render the view conaining the form
           if(isset( $idPubl) && !empty($idPubl) && is_numeric($idPubl)){
             //For security issue, the following sql request verify whether the $idPubl param is a valid publication id
             $isValidPubl = (empty(Publication::find()->where(['id_publ'=>$idPubl])->scalar())) ? false: true;

@@ -22,8 +22,10 @@ class LoginForm extends Model
     public function rules()
     {
         return [
-            // username and password are both required
-            [['username', 'password'], 'required'],
+            // password is required
+            [ 'password', 'required','message'=>'ce champ ne doit pas être vide '],
+            // username is required 
+            ['username', 'required','message'=>'ce champ ne doit pas être vide '],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
@@ -70,12 +72,14 @@ class LoginForm extends Model
      */
     protected function getUser()
     {
+        //If username have been used to login
         if ($this->_user === null) {
             $this->_user = User::findByUsername($this->username);
         }
+        //if email have been use
         if ($this->_user === null) {
             $logger = User::findByEmail($this->username);
-            if ($logger->role == "member") {
+            if (is_object($logger) && $logger->role == "member") {
                 $this->_user = $logger;
             }
         }

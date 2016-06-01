@@ -1,6 +1,9 @@
 <?php
 use yii\helpers\Html;
 use common\models\User;
+
+$this->title = 'View-group';
+
 if(!empty($messGroupSenders[0]['id'])){  //if user have at least one mess
                 foreach ($messGroupSenders as $sender): 
       ?>

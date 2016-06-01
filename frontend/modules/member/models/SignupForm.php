@@ -63,9 +63,9 @@ class SignupForm extends Model
             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Cet email existe déjà.'],
 
            
-            ['password', 'string', 'min' => 8, 'message'=>'le mot de passe doit dépasser 8 caractères'],
+            ['password', 'string', 'min' => 8, 'tooShort'=>'le mot de passe doit être au moins 8 caractères'],
 
-            [['nom','prenom'], 'string','min'=>3,'max'=>20, 'tooShort'=>'Ce champ doit dépasser 3 caractères', 'tooShort'=>'Ce champ doit dépasser 3 caractères'],
+            [['nom','prenom'], 'string','min'=>3,'max'=>20, 'tooShort'=>'Ce champ doit être au moins 3 caractères', 'tooShort'=>'Ce champ doit dépasser 3 caractères'],
             
             ['ville', 'string','max'=>20, 'message'=>'Ce champ ne doit pas dépasser 20 caractères'],
             ['sexe','in', 'range'=>['H', 'F']],
